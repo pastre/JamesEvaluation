@@ -48,6 +48,8 @@ struct Character: Codable {
     
     var location, origin: CharacterLocation
     var episode: [String]
+    
+    func imageURL() -> URL { URL(string: image)!}
 }
 
 struct CharacterResponseMetadata: Codable {

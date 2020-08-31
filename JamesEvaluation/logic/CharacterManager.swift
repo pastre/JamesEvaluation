@@ -11,10 +11,11 @@ import UIKit
 
 class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
     
-    var characterProvider: CharacterProvider!
+    private let cellIdentifier = "CHARACTER_CELL"
+    private var characterProvider: CharacterProvider!
     
-    var characters: [Character] = []
-    var tableView: UITableView!
+    private var characters: [Character] = []
+    private var tableView: UITableView!
     
     init(_ tableView: UITableView) {
         self.tableView = tableView
@@ -23,6 +24,7 @@ class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         self.characterProvider = CharacterLoader()
         
@@ -33,7 +35,6 @@ class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
     func loadCharacters() {
         self.characterProvider.loadCharacters { (newCharacters, error) in
             guard let characters = newCharacters else { return }
-            
 
             self.characters.append(contentsOf: characters)
             self.tableView.reloadData()
@@ -46,7 +47,11 @@ class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CharacterTableViewCell
+        
+        cell.character = self.characters[indexPath.item]
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
