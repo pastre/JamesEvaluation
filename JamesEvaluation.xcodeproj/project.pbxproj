@@ -112,7 +112,6 @@
 				D74BC22824FD98C9006814BB /* view */,
 				D7C0BCC424FD720D001037FC /* model */,
 				D7C0BCC324FD7208001037FC /* logic */,
-				D7C0BCC224FD70EE001037FC /* networking */,
 				D7C0BC9824FD6C1E001037FC /* AppDelegate.swift */,
 				D7C0BC9A24FD6C1E001037FC /* SceneDelegate.swift */,
 				D7C0BC9E24FD6C1E001037FC /* Main.storyboard */,
@@ -148,6 +147,7 @@
 				D74BC22224FD9489006814BB /* CharacterLoader.swift */,
 				D74BC22424FD94A3006814BB /* CharacterProvider.swift */,
 				D74BC22624FD94B6006814BB /* CharacterLoaderError.swift */,
+				D7C0BCC224FD70EE001037FC /* networking */,
 			);
 			path = logic;
 			sourceTree = "<group>";

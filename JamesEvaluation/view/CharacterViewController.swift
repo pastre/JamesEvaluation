@@ -12,12 +12,25 @@ class CharacterViewController: UIViewController {
 
     var model: CharacterViewModel!
     
+    private let imageView: UIImageView = {
+        let view = UIImageView()
+        
+        view.contentMode = .scaleAspectFill
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    func setupImageView() {
+        
     }
     
 

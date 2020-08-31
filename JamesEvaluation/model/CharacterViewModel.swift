@@ -13,7 +13,7 @@ class CharacterViewModel {
     
     private var character: Character!
     private var location, origin: Location?
-    private var episodes: [Episode]?
+    private var episodes: [Episode] = []
     
     private let api = APIFacade()
     
@@ -23,20 +23,41 @@ class CharacterViewModel {
     
     private func load() {
         self.api.getLocation(url: self.character.origin.url) { (location, error) in
-            //TODO
+            guard let location = location else {
+                print("Failed to fetch origin location!", error)
+                return
+            }
+            
+            self.location = location
+            self.onUIComponentLoaded()
         }
         
         self.api.getLocation(url: self.character.location.url) { (location, error) in
-            // TODO
+            guard let location = location else {
+                print("Failed to fetch current location!", error)
+                return
+            }
+            
+            self.location = location
+            self.onUIComponentLoaded()
         }
         
-        self.character.episode.forEach { (episode) in
-            self.api.getEpisode(url: episode) { (episode, error) in
-                //TODO
+        self.character.episode.forEach { (url) in
+            self.api.getEpisode(url: url) { (episode, error) in
+                guard let episode = episode else {
+                    print("Failed to fetch episode!", error)
+                    return
+                }
+                self.episodes.append(episode)
+                self.onUIComponentLoaded()
             }
         }
     }
     
+    
+    func onUIComponentLoaded() {
+        //TODO: UPDate interface
+    }
     
     
     

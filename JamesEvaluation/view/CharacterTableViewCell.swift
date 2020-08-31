@@ -90,15 +90,20 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         self.characterStatusLabel.text = character.status + " - " + character.gender
         self.locationLabel.text = character.location.name
         
-        self.apiFacade.doGet(character.imageURL()) { (data, error) in
-            guard let data = data else {
-                print("Failed to load image!", error)
-                return
+        if let data = self.character?.loadedImage {
+            self.characterImageView.image = UIImage(data: data)
+        } else {
+            self.apiFacade.doGet(character.imageURL()) { (data, error) in
+                guard let data = data else {
+                    print("Failed to load image!", error)
+                    return
+                }
+                self.character?.loadedImage = data
+                DispatchQueue.main.async {
+                    self.characterImageView.image = UIImage(data: data)
+                }
+                
             }
-            DispatchQueue.main.async {
-                self.characterImageView.image = UIImage(data: data)
-            }
-            
         }
     }
     

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Bruno Pastre. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Location: Codable {
     
@@ -35,7 +35,7 @@ struct CharacterLocation: Codable {
     var name, url: String
 }
 
-struct Character: Codable {
+class Character: Codable {
     var id: Int
     var name: String
     var image: String
@@ -48,6 +48,10 @@ struct Character: Codable {
     
     var location, origin: CharacterLocation
     var episode: [String]
+    
+    
+    var loadedImage: Data?
+    
     
     func imageURL() -> URL { URL(string: image)!}
 }
