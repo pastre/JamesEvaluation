@@ -51,11 +51,22 @@ class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
         
         cell.character = self.characters[indexPath.item]
         
+        cell.contentView.layer.cornerRadius = 20
+        cell.contentView.layer.masksToBounds = true
+        
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: 1, height: 1)
+        cell.layer.shadowRadius = 3
+        cell.layer.shadowOpacity = 0.5
+        cell.layer.masksToBounds = false
+        cell.layer.cornerRadius = 20
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         tableView.frame.height * 0.2
     }
+    
 }
 

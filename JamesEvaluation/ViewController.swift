@@ -36,6 +36,8 @@ class ViewController: UIViewController {
         self.charactersTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         self.charactersTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
+        self.charactersTableView.separatorStyle = .none
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

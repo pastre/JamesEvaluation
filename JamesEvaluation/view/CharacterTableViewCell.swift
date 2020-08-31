@@ -60,26 +60,6 @@ class CharacterTableViewCell: UITableViewCell {
         return view
     }()
     
-    
-    private let firstSeenHintLabel: UILabel = {
-        let view = UILabel()
-        
-        view.textColor = .gray
-        view.font = .systemFont(ofSize: 18, weight: .medium)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
-    private let firstSeenLabel: UILabel = {
-        let view = UILabel()
-        
-        view.font = .systemFont(ofSize: 20, weight: .medium)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
     var character: Character? {
         didSet {
             self.onCharacterChanged()
@@ -92,14 +72,14 @@ class CharacterTableViewCell: UITableViewCell {
         self.characterNameLabel.text = character.name
         self.characterStatusLabel.text = character.status + " - " + character.gender
         self.locationLabel.text = character.location.name
+        
         self.apiFacade.doGet(character.imageURL()) { (data, error) in
             guard let data = data else {
-                print("BROW ERRO BRABO")
+                print("Failed to load image!", error)
                 return
             }
             DispatchQueue.main.async {
                 self.characterImageView.image = UIImage(data: data)
-                print("Data is", self.characterImageView.image)
             }
             
         }
@@ -142,10 +122,6 @@ class CharacterTableViewCell: UITableViewCell {
         
         self.locationLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
         self.locationLabel.topAnchor.constraint(equalTo: self.locationHintLabel.bottomAnchor, constant: 10).isActive = true
-        
-        
-        
-        
     }
     
     private func commonInit() {
@@ -154,6 +130,7 @@ class CharacterTableViewCell: UITableViewCell {
         self.setupNameLabel()
         self.setupStatusLabel()
         self.setupLocationLabel()
+        
     }
     
     
