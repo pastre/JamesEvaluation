@@ -11,7 +11,7 @@ import XCTest
 
 class JamesEvaluationTests: XCTestCase {
 
-    let loader = CharacterLoader()
+    var loader = CharacterLoader()
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -20,40 +20,69 @@ class JamesEvaluationTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testloadAllCharacters() throws {
+    func testLoadLastCharacters() throws {
+        let expectation = XCTestExpectation(description: "Load last characters")
         
-        while true {
-             self.loader.loadCharacters { (newCharacters, error) in
-                if let error = error {
-                    XCTFail("Failed to load!, \(error)")
-                    return
-                }
-            }
-        }
-    }
-    
-    func testCharacterLoading() throws {
-        let expectation = XCTestExpectation(description: "Load 4 character pages")
-
-        self.loader.loadCharacters { (newCharacters, error) in
+        let loader = CharacterLoader()
+        
+        loader.loadCharacters { (characters, error) in
+        
             if let error = error {
                 XCTFail("Failed to load!, \(error)")
                 return
             }
-            
-            self.loader.loadCharacters { (newCharacters, error) in
+        
+        
+            loader.currentResponse = .atPage(loader.currentResponse.pages)
+        
+            loader.loadCharacters { characters, error in
                 if let error = error {
                     XCTFail("Failed to load!, \(error)")
                     return
                 }
                 
-                self.loader.loadCharacters { (newCharacters, error) in
+                loader.loadCharacters { (characters, error) in
+
+                    if let error = error {
+                        if error is CharacterLoaderError {
+                            expectation.fulfill()
+                            return
+                        }
+                        
+                        XCTFail("Failed to load!, \(error)")
+                        return
+                    }
+                }
+            }
+        }
+    
+        
+        self.wait(for: [expectation], timeout: 20)
+    }
+    
+    func testCharacterLoading() throws {
+        let expectation = XCTestExpectation(description: "Load 4 character pages")
+        
+        let loader = CharacterLoader()
+        loader.loadCharacters { (newCharacters, error) in
+            if let error = error {
+                XCTFail("Failed to load!, \(error)")
+                return
+            }
+            
+            loader.loadCharacters { (newCharacters, error) in
+                if let error = error {
+                    XCTFail("Failed to load!, \(error)")
+                    return
+                }
+                
+                loader.loadCharacters { (newCharacters, error) in
                     if let error = error {
                         XCTFail("Failed to load!, \(error)")
                         return
                     }
 
-                    self.loader.loadCharacters { (newCharacters, error) in
+                    loader.loadCharacters { (newCharacters, error) in
                         if let error = error {
                             XCTFail("Failed to load!, \(error)")
                             return

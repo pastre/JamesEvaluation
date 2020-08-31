@@ -22,12 +22,15 @@ class CharacterLoader: CharacterProvider {
     
     var apiFacade = APIFacade()
     var currentResponse: CharacterResponseMetadata!
+    var canRequest: Bool = true
     
     init() {
         self.currentResponse = CharacterResponseMetadata.getFirst()
     }
     
     func loadCharacters(completion: @escaping ([Character]?, Error?) -> ()) {
+        
+        guard canRequest else { return }
         
         guard let url = self.currentResponse.nextURL() else {
             completion(nil, CharacterLoaderError.noMoreCharacters)

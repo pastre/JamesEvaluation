@@ -65,6 +65,15 @@ struct CharacterResponseMetadata: Codable {
          CharacterResponseMetadata(count: 0, pages: 0, prev: nil, next: "https://rickandmortyapi.com/api/character/")
     }
     
+    static func getNearLast() -> CharacterResponseMetadata {
+
+        CharacterResponseMetadata(count: 0, pages: 0, prev: nil, next: "https://rickandmortyapi.com/api/character/?page=190")
+    }
+    
+    static func atPage(_ page: Int) -> CharacterResponseMetadata {
+        CharacterResponseMetadata(count: 0, pages: 0, prev: nil, next: "https://rickandmortyapi.com/api/character/?page=\(page)")
+    }
+    
 }
 
 struct CharacterResponse: Codable {
