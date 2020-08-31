@@ -16,6 +16,8 @@
 		D7C0BCB024FD6C22001037FC /* JamesEvaluationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCAF24FD6C22001037FC /* JamesEvaluationTests.swift */; };
 		D7C0BCBB24FD6C53001037FC /* CharacterCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCBA24FD6C53001037FC /* CharacterCollectionViewManager.swift */; };
 		D7C0BCBD24FD6E83001037FC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCBC24FD6E83001037FC /* Model.swift */; };
+		D7C0BCBF24FD70C7001037FC /* APIFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCBE24FD70C7001037FC /* APIFacade.swift */; };
+		D7C0BCC124FD70E9001037FC /* NetworkingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCC024FD70E9001037FC /* NetworkingEnums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 		D7C0BCB124FD6C22001037FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7C0BCBA24FD6C53001037FC /* CharacterCollectionViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCollectionViewManager.swift; sourceTree = "<group>"; };
 		D7C0BCBC24FD6E83001037FC /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		D7C0BCBE24FD70C7001037FC /* APIFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFacade.swift; sourceTree = "<group>"; };
+		D7C0BCC024FD70E9001037FC /* NetworkingEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingEnums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,9 @@
 		D7C0BC9724FD6C1E001037FC /* JamesEvaluation */ = {
 			isa = PBXGroup;
 			children = (
+				D7C0BCC424FD720D001037FC /* model */,
+				D7C0BCC324FD7208001037FC /* logic */,
+				D7C0BCC224FD70EE001037FC /* networking */,
 				D7C0BC9824FD6C1E001037FC /* AppDelegate.swift */,
 				D7C0BC9A24FD6C1E001037FC /* SceneDelegate.swift */,
 				D7C0BC9C24FD6C1E001037FC /* ViewController.swift */,
@@ -103,6 +110,29 @@
 				D7C0BCB124FD6C22001037FC /* Info.plist */,
 			);
 			path = JamesEvaluationTests;
+			sourceTree = "<group>";
+		};
+		D7C0BCC224FD70EE001037FC /* networking */ = {
+			isa = PBXGroup;
+			children = (
+				D7C0BCBE24FD70C7001037FC /* APIFacade.swift */,
+				D7C0BCC024FD70E9001037FC /* NetworkingEnums.swift */,
+			);
+			path = networking;
+			sourceTree = "<group>";
+		};
+		D7C0BCC324FD7208001037FC /* logic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = logic;
+			sourceTree = "<group>";
+		};
+		D7C0BCC424FD720D001037FC /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,10 +236,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C0BCC124FD70E9001037FC /* NetworkingEnums.swift in Sources */,
 				D7C0BCBD24FD6E83001037FC /* Model.swift in Sources */,
 				D7C0BC9D24FD6C1E001037FC /* ViewController.swift in Sources */,
 				D7C0BC9924FD6C1E001037FC /* AppDelegate.swift in Sources */,
 				D7C0BCBB24FD6C53001037FC /* CharacterCollectionViewManager.swift in Sources */,
+				D7C0BCBF24FD70C7001037FC /* APIFacade.swift in Sources */,
 				D7C0BC9B24FD6C1E001037FC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

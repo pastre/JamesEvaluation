@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Location {
+struct Location: Codable {
     
     var id: Int
     var name: String
@@ -20,7 +20,7 @@ struct Location {
     
 }
 
-struct Episode {
+struct Episode: Codable {
     var id: Int
     var name: String
     
@@ -31,7 +31,7 @@ struct Episode {
     var created: String
 }
 
-struct Character {
+struct Character: Codable {
     var id: Int
     var name: String
     var image: String
