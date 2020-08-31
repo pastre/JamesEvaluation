@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D74BC22324FD9489006814BB /* CharacterLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BC22224FD9489006814BB /* CharacterLoader.swift */; };
+		D74BC22524FD94A3006814BB /* CharacterProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BC22424FD94A3006814BB /* CharacterProvider.swift */; };
+		D74BC22724FD94B6006814BB /* CharacterLoaderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BC22624FD94B6006814BB /* CharacterLoaderError.swift */; };
 		D7C0BC9924FD6C1E001037FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BC9824FD6C1E001037FC /* AppDelegate.swift */; };
 		D7C0BC9B24FD6C1E001037FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BC9A24FD6C1E001037FC /* SceneDelegate.swift */; };
 		D7C0BC9D24FD6C1E001037FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BC9C24FD6C1E001037FC /* ViewController.swift */; };
@@ -14,7 +17,7 @@
 		D7C0BCA224FD6C22001037FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7C0BCA124FD6C22001037FC /* Assets.xcassets */; };
 		D7C0BCA524FD6C22001037FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C0BCA324FD6C22001037FC /* LaunchScreen.storyboard */; };
 		D7C0BCB024FD6C22001037FC /* JamesEvaluationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCAF24FD6C22001037FC /* JamesEvaluationTests.swift */; };
-		D7C0BCBB24FD6C53001037FC /* CharacterCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCBA24FD6C53001037FC /* CharacterCollectionViewManager.swift */; };
+		D7C0BCBB24FD6C53001037FC /* CharacterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCBA24FD6C53001037FC /* CharacterManager.swift */; };
 		D7C0BCBD24FD6E83001037FC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCBC24FD6E83001037FC /* Model.swift */; };
 		D7C0BCBF24FD70C7001037FC /* APIFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCBE24FD70C7001037FC /* APIFacade.swift */; };
 		D7C0BCC124FD70E9001037FC /* NetworkingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0BCC024FD70E9001037FC /* NetworkingEnums.swift */; };
@@ -31,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D74BC22224FD9489006814BB /* CharacterLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterLoader.swift; sourceTree = "<group>"; };
+		D74BC22424FD94A3006814BB /* CharacterProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProvider.swift; sourceTree = "<group>"; };
+		D74BC22624FD94B6006814BB /* CharacterLoaderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterLoaderError.swift; sourceTree = "<group>"; };
 		D7C0BC9524FD6C1E001037FC /* JamesEvaluation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JamesEvaluation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C0BC9824FD6C1E001037FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7C0BC9A24FD6C1E001037FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +48,7 @@
 		D7C0BCAB24FD6C22001037FC /* JamesEvaluationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JamesEvaluationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C0BCAF24FD6C22001037FC /* JamesEvaluationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JamesEvaluationTests.swift; sourceTree = "<group>"; };
 		D7C0BCB124FD6C22001037FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D7C0BCBA24FD6C53001037FC /* CharacterCollectionViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCollectionViewManager.swift; sourceTree = "<group>"; };
+		D7C0BCBA24FD6C53001037FC /* CharacterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterManager.swift; sourceTree = "<group>"; };
 		D7C0BCBC24FD6E83001037FC /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		D7C0BCBE24FD70C7001037FC /* APIFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFacade.swift; sourceTree = "<group>"; };
 		D7C0BCC024FD70E9001037FC /* NetworkingEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingEnums.swift; sourceTree = "<group>"; };
@@ -66,6 +72,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D74BC22824FD98C9006814BB /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		D7C0BC8C24FD6C1E001037FC = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +100,7 @@
 		D7C0BC9724FD6C1E001037FC /* JamesEvaluation */ = {
 			isa = PBXGroup;
 			children = (
+				D74BC22824FD98C9006814BB /* view */,
 				D7C0BCC424FD720D001037FC /* model */,
 				D7C0BCC324FD7208001037FC /* logic */,
 				D7C0BCC224FD70EE001037FC /* networking */,
@@ -122,7 +136,10 @@
 		D7C0BCC324FD7208001037FC /* logic */ = {
 			isa = PBXGroup;
 			children = (
-				D7C0BCBA24FD6C53001037FC /* CharacterCollectionViewManager.swift */,
+				D7C0BCBA24FD6C53001037FC /* CharacterManager.swift */,
+				D74BC22224FD9489006814BB /* CharacterLoader.swift */,
+				D74BC22424FD94A3006814BB /* CharacterProvider.swift */,
+				D74BC22624FD94B6006814BB /* CharacterLoaderError.swift */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -237,10 +254,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7C0BCC124FD70E9001037FC /* NetworkingEnums.swift in Sources */,
+				D74BC22724FD94B6006814BB /* CharacterLoaderError.swift in Sources */,
+				D74BC22524FD94A3006814BB /* CharacterProvider.swift in Sources */,
 				D7C0BCBD24FD6E83001037FC /* Model.swift in Sources */,
 				D7C0BC9D24FD6C1E001037FC /* ViewController.swift in Sources */,
 				D7C0BC9924FD6C1E001037FC /* AppDelegate.swift in Sources */,
-				D7C0BCBB24FD6C53001037FC /* CharacterCollectionViewManager.swift in Sources */,
+				D74BC22324FD9489006814BB /* CharacterLoader.swift in Sources */,
+				D7C0BCBB24FD6C53001037FC /* CharacterManager.swift in Sources */,
 				D7C0BCBF24FD70C7001037FC /* APIFacade.swift in Sources */,
 				D7C0BC9B24FD6C1E001037FC /* SceneDelegate.swift in Sources */,
 			);

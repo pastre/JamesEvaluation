@@ -10,19 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var charactersCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var charactersTableView: UITableView = {
+        let tableView = UITableView()
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        return collectionView
+        return tableView
     }()
-    var charactersManager: CharacterCollectionViewManager!
+    
+    var charactersManager: CharacterManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.charactersManager = CharacterCollectionViewManager(self.charactersCollectionView)
+        self.charactersManager = CharacterManager(self.charactersTableView)
     }
     
     
