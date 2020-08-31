@@ -10,12 +10,11 @@ import UIKit
 
 
 class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
-
-    
     
     var characterProvider: CharacterProvider!
+    
     var characters: [Character] = []
-    var tableView: UITableView
+    var tableView: UITableView!
     
     init(_ tableView: UITableView) {
         self.tableView = tableView
@@ -49,5 +48,10 @@ class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        tableView.frame.height * 0.2
+    }
+
 }
 
