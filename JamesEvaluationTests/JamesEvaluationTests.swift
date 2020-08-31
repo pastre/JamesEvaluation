@@ -20,28 +20,40 @@ class JamesEvaluationTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    func testloadAllCharacters() throws {
+        
+        while true {
+             self.loader.loadCharacters { (newCharacters, error) in
+                if let error = error {
+                    XCTFail("Failed to load!, \(error)")
+                    return
+                }
+            }
+        }
+    }
+    
     func testCharacterLoading() throws {
         let expectation = XCTestExpectation(description: "Load 4 character pages")
 
-        self.loader.loadCharacters { (response, error) in
+        self.loader.loadCharacters { (newCharacters, error) in
             if let error = error {
                 XCTFail("Failed to load!, \(error)")
                 return
             }
             
-            self.loader.loadCharacters { (response, error) in
+            self.loader.loadCharacters { (newCharacters, error) in
                 if let error = error {
                     XCTFail("Failed to load!, \(error)")
                     return
                 }
                 
-                self.loader.loadCharacters { (response, error) in
+                self.loader.loadCharacters { (newCharacters, error) in
                     if let error = error {
                         XCTFail("Failed to load!, \(error)")
                         return
                     }
 
-                    self.loader.loadCharacters { (response, error) in
+                    self.loader.loadCharacters { (newCharacters, error) in
                         if let error = error {
                             XCTFail("Failed to load!, \(error)")
                             return
