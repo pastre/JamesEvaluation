@@ -93,9 +93,9 @@ class APIFacade {
     }
     
     // MARK: - GET Characters
-    func getCharacters(completion: @escaping (Character?, Error?) -> ()) {
+    func getCharacters(url: URL, completion: @escaping ([Character]?, Error?) -> ()) {
         
-        self.doGet(URLComposer().withCharacters().toURL()) { (data, error) in
+        self.doGet(url) { (data, error) in
             self.validateAndCompleteRequest(data: data, error: error, completion: completion)
         }
     }

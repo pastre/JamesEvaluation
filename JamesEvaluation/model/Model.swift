@@ -31,6 +31,10 @@ struct Episode: Codable {
     var created: String
 }
 
+struct CharacterLocation: Codable {
+    var name, url: String
+}
+
 struct Character: Codable {
     var id: Int
     var name: String
@@ -42,6 +46,25 @@ struct Character: Codable {
     var species: String
     var gender: String
     
-    var location: Location
-    var episode: [Episode]
+    var location, origin: CharacterLocation
+    var episode: [String]
+}
+
+struct CharacterResponseMetadata {
+    
+    static let first = CharacterResponseMetadata(count: 0, pages: 0, prev: nil, next: "https://rickandmortyapi.com/api/character/")
+    
+    var count, pages: Int
+    var prev, next: String?
+    
+    func nextURL() -> URL? {
+        return nil
+    }
+    
+}
+
+struct CharacterResponse {
+    
+    var info: CharacterResponseMetadata
+    var response: [Character]
 }

@@ -97,8 +97,6 @@
 				D7C0BCA124FD6C22001037FC /* Assets.xcassets */,
 				D7C0BCA324FD6C22001037FC /* LaunchScreen.storyboard */,
 				D7C0BCA624FD6C22001037FC /* Info.plist */,
-				D7C0BCBA24FD6C53001037FC /* CharacterCollectionViewManager.swift */,
-				D7C0BCBC24FD6E83001037FC /* Model.swift */,
 			);
 			path = JamesEvaluation;
 			sourceTree = "<group>";
@@ -124,6 +122,7 @@
 		D7C0BCC324FD7208001037FC /* logic */ = {
 			isa = PBXGroup;
 			children = (
+				D7C0BCBA24FD6C53001037FC /* CharacterCollectionViewManager.swift */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -131,6 +130,7 @@
 		D7C0BCC424FD720D001037FC /* model */ = {
 			isa = PBXGroup;
 			children = (
+				D7C0BCBC24FD6E83001037FC /* Model.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
