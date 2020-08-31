@@ -92,6 +92,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         
         if let data = self.character?.loadedImage {
             self.characterImageView.image = UIImage(data: data)
+            
         } else {
             self.apiFacade.doGet(character.imageURL()) { (data, error) in
                 guard let data = data else {

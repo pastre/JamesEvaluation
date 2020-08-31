@@ -8,14 +8,18 @@
 
 import Foundation
 
-
+protocol CharacterViewModelDelegate: class {
+    func updateInterface()
+}
 class CharacterViewModel {
     
-    private var character: Character!
     private var location, origin: Location?
     private var episodes: [Episode] = []
     
     private let api = APIFacade()
+    
+    var delegate: CharacterViewModelDelegate?
+    var character: Character!
     
     internal init(character: Character) {
         self.character = character
@@ -56,7 +60,7 @@ class CharacterViewModel {
     
     
     func onUIComponentLoaded() {
-        //TODO: UPDate interface
+        self.delegate?.updateInterface()
     }
     
     
