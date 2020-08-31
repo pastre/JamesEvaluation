@@ -12,6 +12,12 @@ class CharacterCollectionViewCell: UICollectionViewCell {
 
     let apiFacade = APIFacade()
     
+    var character: Character? {
+        didSet {
+            self.onCharacterChanged()
+        }
+    }
+    
     private let characterImageView: UIImageView = {
         let view = UIImageView()
         
@@ -24,6 +30,10 @@ class CharacterCollectionViewCell: UICollectionViewCell {
     private let characterNameLabel: UILabel = {
         let view = UILabel()
         
+        view.numberOfLines = 2
+        view.minimumScaleFactor = 0.5
+        view.adjustsFontSizeToFitWidth = true
+        
         view.font = .systemFont(ofSize: 24, weight: .bold)
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -33,19 +43,27 @@ class CharacterCollectionViewCell: UICollectionViewCell {
     private let characterStatusLabel: UILabel = {
         let view = UILabel()
         
-        view.font = .systemFont(ofSize: 20, weight: .medium)
+        view.numberOfLines = 1
+        view.minimumScaleFactor = 0.5
+        view.adjustsFontSizeToFitWidth = true
+        
+        view.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        view.font = .systemFont(ofSize: 20, weight: .light)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    
     private let locationHintLabel: UILabel = {
         let view = UILabel()
         
+        view.numberOfLines = 1
+        view.minimumScaleFactor = 0.2
+        view.adjustsFontSizeToFitWidth = true
+        
         view.text = "Last known location:"
-        view.textColor = .gray
-        view.font = .systemFont(ofSize: 18, weight: .medium)
+        view.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        view.font = .systemFont(ofSize: 18, weight: .light)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -54,19 +72,18 @@ class CharacterCollectionViewCell: UICollectionViewCell {
     private let locationLabel: UILabel = {
         let view = UILabel()
         
+        view.numberOfLines = 1
+        view.minimumScaleFactor = 0.5
+        view.adjustsFontSizeToFitWidth = true
+        
         view.font = .systemFont(ofSize: 20, weight: .medium)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    var character: Character? {
-        didSet {
-            self.onCharacterChanged()
-        }
-    }
     
-    func onCharacterChanged() {
+    private func onCharacterChanged() {
         guard let character = self.character else { return }
         
         self.characterNameLabel.text = character.name
@@ -89,9 +106,9 @@ class CharacterCollectionViewCell: UICollectionViewCell {
     private func setupImage() {
         self.contentView.addSubview(self.characterImageView)
         
-        self.characterImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10).isActive = true
-        self.characterImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor,  constant: 10).isActive = true
-        self.characterImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10).isActive = true
+        self.characterImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
+        self.characterImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+        self.characterImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         self.characterImageView.widthAnchor.constraint(equalTo: self.characterImageView.heightAnchor).isActive = true
     }
     
@@ -100,28 +117,35 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(self.characterNameLabel)
         
         self.characterNameLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
-        self.characterNameLabel.topAnchor.constraint(equalTo: self.characterImageView.topAnchor).isActive = true
+        self.characterNameLabel.topAnchor.constraint(equalTo: self.characterImageView.topAnchor, constant: 10).isActive = true
+        
+        self.characterNameLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
 
     }
     
-    func setupStatusLabel() {
+    private func setupStatusLabel() {
         self.contentView.addSubview(self.characterStatusLabel)
         
         self.characterStatusLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
-        self.characterStatusLabel.topAnchor.constraint(equalTo: self.characterNameLabel.bottomAnchor, constant: 10).isActive = true
+        self.characterStatusLabel.topAnchor.constraint(equalTo: self.characterNameLabel.bottomAnchor).isActive = true
         
     }
     
-    func setupLocationLabel() {
+    private func setupLocationLabel() {
         self.contentView.addSubview(locationHintLabel)
         self.contentView.addSubview(locationLabel)
         
+        self.locationLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
+        self.locationLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10).isActive = true
+        self.locationLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
+        
         
         self.locationHintLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
-        self.locationHintLabel.topAnchor.constraint(equalTo: self.characterStatusLabel.bottomAnchor, constant: 20).isActive = true
+        self.locationHintLabel.bottomAnchor.constraint(equalTo: self.locationLabel.topAnchor).isActive = true
         
-        self.locationLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
-        self.locationLabel.topAnchor.constraint(equalTo: self.locationHintLabel.bottomAnchor, constant: 10).isActive = true
+        self.locationHintLabel.widthAnchor.constraint(equalTo: self.locationLabel.widthAnchor, multiplier: 0.5).isActive = true
+        
+        
     }
     
     private func commonInit() {
@@ -129,7 +153,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         self.setupImage()
         self.setupNameLabel()
         self.setupStatusLabel()
-        self.setupLocationLabel()
+//        self.setupLocationLabel()
         
     }
     

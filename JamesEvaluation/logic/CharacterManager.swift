@@ -76,11 +76,11 @@ class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width * 0.95, height: collectionView.frame.height * 0.1)
+        return CGSize(width: collectionView.frame.width * 0.95, height: collectionView.frame.height * 0.15)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        60
+        100
     }
     
 }
