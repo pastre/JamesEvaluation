@@ -77,6 +77,7 @@
 		D74BC22824FD98C9006814BB /* view */ = {
 			isa = PBXGroup;
 			children = (
+				D7C0BC9C24FD6C1E001037FC /* ViewController.swift */,
 				D7AEB2BB24FD99D500091237 /* CharacterTableViewCell.swift */,
 			);
 			path = view;
@@ -109,7 +110,6 @@
 				D7C0BCC224FD70EE001037FC /* networking */,
 				D7C0BC9824FD6C1E001037FC /* AppDelegate.swift */,
 				D7C0BC9A24FD6C1E001037FC /* SceneDelegate.swift */,
-				D7C0BC9C24FD6C1E001037FC /* ViewController.swift */,
 				D7C0BC9E24FD6C1E001037FC /* Main.storyboard */,
 				D7C0BCA124FD6C22001037FC /* Assets.xcassets */,
 				D7C0BCA324FD6C22001037FC /* LaunchScreen.storyboard */,

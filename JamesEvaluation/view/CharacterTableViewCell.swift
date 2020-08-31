@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CharacterTableViewCell: UITableViewCell {
+class CharacterCollectionViewCell: UICollectionViewCell {
 
     let apiFacade = APIFacade()
     
@@ -133,10 +133,8 @@ class CharacterTableViewCell: UITableViewCell {
         
     }
     
-    
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         self.commonInit()
     }

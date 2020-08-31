@@ -9,22 +9,23 @@
 import UIKit
 
 
-class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
+class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     private let cellIdentifier = "CHARACTER_CELL"
     private var characterProvider: CharacterProvider!
     
     private var characters: [Character] = []
-    private var tableView: UITableView!
+    private var collectionView: UICollectionView!
     
-    init(_ tableView: UITableView) {
-        self.tableView = tableView
+    init(_ collectionView: UICollectionView) {
+        self.collectionView = collectionView
         
         super.init()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.register(CharacterCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
         
         self.characterProvider = CharacterLoader()
         
@@ -37,19 +38,25 @@ class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
             guard let characters = newCharacters else { return }
 
             self.characters.append(contentsOf: characters)
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
     
-    //MARK: - tableView Datasource & delegate
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //MARK: - collectionView Datasource & delegate
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.characters.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CharacterTableViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CharacterCollectionViewCell
         
         cell.character = self.characters[indexPath.item]
+        cell.backgroundColor = .white
         
         cell.contentView.layer.cornerRadius = 20
         cell.contentView.layer.masksToBounds = true
@@ -64,8 +71,16 @@ class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        tableView.frame.height * 0.2
+    func collectionView(_ collectionView: UICollectionView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        collectionView.frame.height * 0.2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width * 0.95, height: collectionView.frame.height * 0.1)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        60
     }
     
 }
