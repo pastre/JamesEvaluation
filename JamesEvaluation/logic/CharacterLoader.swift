@@ -29,12 +29,17 @@ class CharacterLoader: CharacterProvider {
         
         self.apiFacade.getCharacters(url: url) { (response, error) in
             guard let response = response else {
-                completion(nil, error)
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
                 return
             }
             
             self.currentResponse = response.info
-            completion(response.results, error)
+            
+            DispatchQueue.main.async {
+                completion(response.results, error)
+            }
         }
     }
     
