@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CharacterProvider {
-    func loadCharacters(completion: @escaping ([Character]?, Error?) -> ())
+    func loadCharacters(completion: @escaping (CharacterResponse, Error?) -> ())
 }
 
 protocol CharacterLoaderDelegate {
@@ -25,30 +25,30 @@ class CharacterLoader: CharacterProvider {
     
     var apiFacade = APIFacade()
     var currentResponse: CharacterResponseMetadata!
-    var delegate: CharacterLoaderDelegate!
+    var delegate: CharacterLoaderDelegate?
     
-    init(delegate: CharacterLoaderDelegate) {
+    init(delegate: CharacterLoaderDelegate? = nil) {
         self.delegate = delegate
         self.currentResponse = CharacterResponseMetadata.first
     }
     
-    func loadCharacters(completion: @escaping ([Character]?, Error?) -> ()) {
-    
+    func loadCharacters(completion: @escaping (CharacterResponse, Error?) -> ()) {
+        
         guard let url = self.currentResponse.nextURL() else {
-            self.delegate.onError(error: CharacterLoaderError.noMoreCharacters)
+            self.delegate?.onError(error: CharacterLoaderError.noMoreCharacters)
             
             return
         }
         
-        
-        self.apiFacade.getCharacters(url: url) { (characters, error) in
-            guard let characters = characters else {
-                self.delegate.onError(error: error!)
+        self.apiFacade.getCharacters(url: url) { (response, error) in
+            guard let response = response else {
+                self.delegate?.onError(error: error!)
                 
                 return
             }
             
-            self.delegate.onCharactersLoaded(characters)
+            self.currentResponse = response.info
+            self.delegate?.onCharactersLoaded(response.resultf)
         }
     }
 }

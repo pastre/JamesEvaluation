@@ -8,19 +8,6 @@
 
 import Foundation
 
-class URLComposer {
-    
-    private var currentString =  "https://rickandmortyapi.com/api/"
-    func withCharacters() -> URLComposer {
-        self.currentString += "characters/"
-        
-        return self
-    }
-    
-    func toURL() -> URL { URL(string: self.currentString)! }
-    
-}
-
 class APIFacade {
     
     var session: URLSession!
@@ -52,25 +39,8 @@ class APIFacade {
                 return
             }
             
-            guard let deserialized = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                print("OPS!", String(data: data, encoding: .utf8))
-                completion(nil, APIError.failedToParseJSON)
-                return
-                
-            }
-            
-            let isSuccess = (deserialized["status"] as! String) != "error"
-            
-            if isSuccess {
-
-                
-                let payload = try! JSONSerialization.data(withJSONObject: deserialized["payload"], options: [])
-
-                completion(payload, nil)
-                return
-            }
-            
-            completion(nil, APIError.runtimeError(deserialized["payload"] as! String ))
+            completion(data, nil)
+            return
             
         }.resume()
         print("[API] Fired!", url)
@@ -86,14 +56,14 @@ class APIFacade {
         }
         
         guard let decoded = try? JSONDecoder().decode(T.self, from: data) else {
-            fatalError("troxa")
+            fatalError("\(type(of: T.self))Tried to decode \(String(data: data, encoding: .utf8)) into something its not")
         }
         
         completion(decoded, nil)
     }
     
     // MARK: - GET Characters
-    func getCharacters(url: URL, completion: @escaping ([Character]?, Error?) -> ()) {
+    func getCharacters(url: URL, completion: @escaping (CharacterResponse?, Error?) -> ()) {
         
         self.doGet(url) { (data, error) in
             self.validateAndCompleteRequest(data: data, error: error, completion: completion)

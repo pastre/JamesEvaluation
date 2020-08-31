@@ -50,7 +50,7 @@ struct Character: Codable {
     var episode: [String]
 }
 
-struct CharacterResponseMetadata {
+struct CharacterResponseMetadata: Codable {
     
     static let first = CharacterResponseMetadata(count: 0, pages: 0, prev: nil, next: "https://rickandmortyapi.com/api/character/")
     
@@ -58,13 +58,15 @@ struct CharacterResponseMetadata {
     var prev, next: String?
     
     func nextURL() -> URL? {
+        if let next = self.next { return URL(string: next) }
         return nil
     }
     
 }
 
-struct CharacterResponse {
+struct CharacterResponse: Codable {
     
     var info: CharacterResponseMetadata
-    var response: [Character]
+    var result: [Character]
+    
 }

@@ -11,6 +11,7 @@ import XCTest
 
 class JamesEvaluationTests: XCTestCase {
 
+    let loader = CharacterLoader()
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -19,9 +20,48 @@ class JamesEvaluationTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCharacterLoading() throws {
+        let expectation = XCTestExpectation(description: "Load 4 character pages")
+
+        print("AEEE")
+        self.loader.loadCharacters { (response, error) in
+            if let error = error {
+                XCTFail("Failed to load!, \(error)")
+                return
+            }
+            print("AEEE")
+            
+            self.loader.loadCharacters { (response, error) in
+                if let error = error {
+                    XCTFail("Failed to load!, \(error)")
+                    return
+                }
+                print("AEEE")
+                
+                self.loader.loadCharacters { (response, error) in
+                    if let error = error {
+                        XCTFail("Failed to load!, \(error)")
+                        return
+                    }
+                    print("AEEE")
+
+                    self.loader.loadCharacters { (response, error) in
+                        if let error = error {
+                            XCTFail("Failed to load!, \(error)")
+                            return
+                        }
+                        print("AEEE")
+                        expectation.fulfill()
+                        
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        
+        self.wait(for: [expectation], timeout: 20)
     }
 
     func testPerformanceExample() throws {
