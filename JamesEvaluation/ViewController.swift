@@ -10,10 +10,22 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var charactersCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+    }()
+    var charactersManager: CharacterCollectionViewManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.charactersManager = CharacterCollectionViewManager(self.charactersCollectionView)
     }
+    
+    
 
 
 }
