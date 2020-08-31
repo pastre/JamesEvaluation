@@ -43,6 +43,7 @@ class CharacterTableViewCell: UITableViewCell {
     private let locationHintLabel: UILabel = {
         let view = UILabel()
         
+        view.text = "Last known location:"
         view.textColor = .gray
         view.font = .systemFont(ofSize: 18, weight: .medium)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +90,8 @@ class CharacterTableViewCell: UITableViewCell {
         guard let character = self.character else { return }
         
         self.characterNameLabel.text = character.name
-        
+        self.characterStatusLabel.text = character.status + " - " + character.gender
+        self.locationLabel.text = character.location.name
         self.apiFacade.doGet(character.imageURL()) { (data, error) in
             guard let data = data else {
                 print("BROW ERRO BRABO")
@@ -107,9 +109,9 @@ class CharacterTableViewCell: UITableViewCell {
     private func setupImage() {
         self.contentView.addSubview(self.characterImageView)
         
-        self.characterImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
-        self.characterImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        self.characterImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        self.characterImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10).isActive = true
+        self.characterImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor,  constant: 10).isActive = true
+        self.characterImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10).isActive = true
         self.characterImageView.widthAnchor.constraint(equalTo: self.characterImageView.heightAnchor).isActive = true
     }
     
@@ -118,15 +120,40 @@ class CharacterTableViewCell: UITableViewCell {
         self.contentView.addSubview(self.characterNameLabel)
         
         self.characterNameLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
-        self.characterNameLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+        self.characterNameLabel.topAnchor.constraint(equalTo: self.characterImageView.topAnchor).isActive = true
 
+    }
+    
+    func setupStatusLabel() {
+        self.contentView.addSubview(self.characterStatusLabel)
+        
+        self.characterStatusLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
+        self.characterStatusLabel.topAnchor.constraint(equalTo: self.characterNameLabel.bottomAnchor, constant: 10).isActive = true
+        
+    }
+    
+    func setupLocationLabel() {
+        self.contentView.addSubview(locationHintLabel)
+        self.contentView.addSubview(locationLabel)
+        
+        
+        self.locationHintLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
+        self.locationHintLabel.topAnchor.constraint(equalTo: self.characterStatusLabel.bottomAnchor, constant: 20).isActive = true
+        
+        self.locationLabel.leadingAnchor.constraint(equalTo: self.characterImageView.trailingAnchor, constant: 20).isActive = true
+        self.locationLabel.topAnchor.constraint(equalTo: self.locationHintLabel.bottomAnchor, constant: 10).isActive = true
+        
+        
+        
+        
     }
     
     private func commonInit() {
         
         self.setupImage()
         self.setupNameLabel()
-        
+        self.setupStatusLabel()
+        self.setupLocationLabel()
     }
     
     

@@ -57,6 +57,5 @@ class CharacterManager: NSObject, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         tableView.frame.height * 0.2
     }
-
 }
 
