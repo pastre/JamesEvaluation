@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, CharacterManagerDelegate {
+    
     var charactersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
@@ -45,6 +45,10 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.charactersManager.loadCharacters()
+    }
+    
+    func onCharacterPicked(_ character: Character) {
+        print("Picked char!", character)
     }
 
 

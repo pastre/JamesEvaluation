@@ -8,6 +8,9 @@
 
 import UIKit
 
+protocol CharacterManagerDelegate: class {
+    func onCharacterPicked(_ character: Character)
+}
 
 class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
@@ -16,6 +19,8 @@ class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollecti
     
     private var characters: [Character] = []
     private var collectionView: UICollectionView!
+    
+    var delegate: CharacterManagerDelegate?
     
     init(_ collectionView: UICollectionView) {
         self.collectionView = collectionView
@@ -77,6 +82,10 @@ class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width * 0.95, height: collectionView.frame.height * 0.15)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.onCharacterPicked(self.characters[indexPath.item])
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
