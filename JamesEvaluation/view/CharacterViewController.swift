@@ -10,11 +10,13 @@ import UIKit
 
 class CharacterViewController: UIViewController {
 
-    var character: Character!
+    var model: CharacterViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
         // Do any additional setup after loading the view.
     }
     

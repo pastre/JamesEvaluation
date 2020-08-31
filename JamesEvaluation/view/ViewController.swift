@@ -54,7 +54,7 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         // TODO: Change to navigation
         let vc = CharacterViewController()
         
-        vc.character = character
+        vc.model = CharacterViewModel(character: character)
         
         self.present(vc, animated: true, completion: nil)
     }

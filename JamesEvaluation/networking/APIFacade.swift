@@ -70,4 +70,30 @@ class APIFacade {
         }
     }
     
+    func getLocation(url: URL, completion: @escaping (Location?, Error?) -> ()) {
+        
+        
+        self.doGet(url) { (data, error) in
+            self.validateAndCompleteRequest(data: data, error: error, completion: completion)
+        }
+    }
+    
+    func getLocation(url: String, completion: @escaping (Location?, Error?) -> ()) {
+        let url = URL(string: url)!
+        
+        self.getLocation(url: url, completion: completion)
+    }
+    
+    func getEpisode(url: String, completion: @escaping (Episode?, Error?) -> () ) {
+        
+        let url = URL(string: url)!
+        
+        
+        self.doGet(url) { (data, error) in
+            self.validateAndCompleteRequest(data: data, error: error, completion: completion)
+        }
+
+    }
+    
+    
 }
