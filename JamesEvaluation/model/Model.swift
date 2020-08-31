@@ -52,7 +52,6 @@ struct Character: Codable {
 
 struct CharacterResponseMetadata: Codable {
     
-    static let first = CharacterResponseMetadata(count: 0, pages: 0, prev: nil, next: "https://rickandmortyapi.com/api/character/")
     
     var count, pages: Int
     var prev, next: String?
@@ -62,11 +61,15 @@ struct CharacterResponseMetadata: Codable {
         return nil
     }
     
+    static func getFirst() ->  CharacterResponseMetadata {
+         CharacterResponseMetadata(count: 0, pages: 0, prev: nil, next: "https://rickandmortyapi.com/api/character/")
+    }
+    
 }
 
 struct CharacterResponse: Codable {
     
     var info: CharacterResponseMetadata
-    var result: [Character]
+    var results: [Character]
     
 }

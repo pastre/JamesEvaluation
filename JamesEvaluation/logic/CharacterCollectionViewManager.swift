@@ -9,13 +9,9 @@
 import UIKit
 
 protocol CharacterProvider {
-    func loadCharacters(completion: @escaping (CharacterResponse, Error?) -> ())
+    func loadCharacters(completion: @escaping ([Character]?, Error?) -> ())
 }
 
-protocol CharacterLoaderDelegate {
-    func onCharactersLoaded(_ newCharacters: [Character])
-    func onError(error: Error)
-}
 
 enum CharacterLoaderError: Error {
     case noMoreCharacters
@@ -23,37 +19,35 @@ enum CharacterLoaderError: Error {
 
 class CharacterLoader: CharacterProvider {
     
+    
     var apiFacade = APIFacade()
     var currentResponse: CharacterResponseMetadata!
-    var delegate: CharacterLoaderDelegate?
     
-    init(delegate: CharacterLoaderDelegate? = nil) {
-        self.delegate = delegate
-        self.currentResponse = CharacterResponseMetadata.first
+    init() {
+        self.currentResponse = CharacterResponseMetadata.getFirst()
     }
     
-    func loadCharacters(completion: @escaping (CharacterResponse, Error?) -> ()) {
+    func loadCharacters(completion: @escaping ([Character]?, Error?) -> ()) {
         
         guard let url = self.currentResponse.nextURL() else {
-            self.delegate?.onError(error: CharacterLoaderError.noMoreCharacters)
-            
+            completion(nil, CharacterLoaderError.noMoreCharacters)
             return
         }
         
         self.apiFacade.getCharacters(url: url) { (response, error) in
             guard let response = response else {
-                self.delegate?.onError(error: error!)
-                
+                completion(nil, error)
                 return
             }
             
             self.currentResponse = response.info
-            self.delegate?.onCharactersLoaded(response.resultf)
+            completion(response.results, error)
         }
     }
+    
 }
 
-class CharacterCollectionViewManager: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CharacterLoaderDelegate {
+class CharacterCollectionViewManager: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var characterProvider: CharacterProvider!
     var characters: [Character] = []
@@ -64,7 +58,7 @@ class CharacterCollectionViewManager: NSObject, UICollectionViewDataSource, UICo
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        self.characterProvider = CharacterLoader(delegate: self)
+        self.characterProvider = CharacterLoader()
         
     }
     

@@ -23,41 +23,34 @@ class JamesEvaluationTests: XCTestCase {
     func testCharacterLoading() throws {
         let expectation = XCTestExpectation(description: "Load 4 character pages")
 
-        print("AEEE")
         self.loader.loadCharacters { (response, error) in
             if let error = error {
                 XCTFail("Failed to load!, \(error)")
                 return
             }
-            print("AEEE")
             
             self.loader.loadCharacters { (response, error) in
                 if let error = error {
                     XCTFail("Failed to load!, \(error)")
                     return
                 }
-                print("AEEE")
                 
                 self.loader.loadCharacters { (response, error) in
                     if let error = error {
                         XCTFail("Failed to load!, \(error)")
                         return
                     }
-                    print("AEEE")
 
                     self.loader.loadCharacters { (response, error) in
                         if let error = error {
                             XCTFail("Failed to load!, \(error)")
                             return
                         }
-                        print("AEEE")
+                        
                         expectation.fulfill()
                         
-                        
                     }
-                    
                 }
-                
             }
         }
         
