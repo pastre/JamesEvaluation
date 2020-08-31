@@ -8,6 +8,18 @@
 
 import Foundation
 
+class URLComposer {
+    
+    private var currentString =  "https://rickandmortyapi.com/api/"
+    func withCharacters() -> URLComposer {
+        self.currentString += "characters/"
+        
+        return self
+    }
+    
+    func toURL() -> URL { URL(string: self.currentString)! }
+    
+}
 
 class APIFacade {
     
@@ -17,15 +29,11 @@ class APIFacade {
         self.session = URLSession(configuration: .default)
     }
     
-    func request(_ endpoint: Endpoint, _ method: HTTPMethod, body: Data? = nil, completion: @escaping (Data?, Error?) -> () ) {
-        self.request(endpoint.getURL(), method, body: body, completion: completion)
-    }
-    
-    func request(_ url: URL, _ method: HTTPMethod, body: Data? = nil, completion: @escaping (Data?, Error?) -> () ) {
+    func doGet(_ url: URL, body: Data? = nil, completion: @escaping (Data?, Error?) -> () ) {
         
         var request = URLRequest(url:url)
 
-        request.httpMethod = method.rawValue
+        request.httpMethod = "GET"
         request.httpBody = body
         
         
@@ -87,7 +95,7 @@ class APIFacade {
     // MARK: - GET Characters
     func getCharacters(completion: @escaping (Character?, Error?) -> ()) {
         
-        self.request(.users, .GET) { (data, error) in
+        self.doGet(URLComposer().withCharacters().toURL()) { (data, error) in
             self.validateAndCompleteRequest(data: data, error: error, completion: completion)
         }
     }
