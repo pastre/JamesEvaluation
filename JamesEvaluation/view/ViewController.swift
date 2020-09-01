@@ -27,12 +27,19 @@ class ViewController: UIViewController, CharacterManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .white
+        
+        
         self.charactersManager = CharacterManager(self.charactersCollectionView)
         self.charactersManager.delegate = self
         self.setupTableView()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Characters"
+        self.navigationItem.largeTitleDisplayMode = .always
         
         self.charactersManager.loadCharacters()
     }
@@ -42,7 +49,7 @@ class ViewController: UIViewController, CharacterManagerDelegate {
     func setupTableView() {
         self.view.addSubview(self.charactersCollectionView)
         
-        self.charactersCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.charactersCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20).isActive = true
         self.charactersCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.charactersCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         self.charactersCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
@@ -56,7 +63,7 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         
         vc.model = CharacterViewModel(character: character)
         
-        self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
 

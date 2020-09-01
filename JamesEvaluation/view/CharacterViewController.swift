@@ -104,6 +104,11 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationItem.title =  self.model.character.name
+        self.navigationItem.largeTitleDisplayMode = .never
+        
         self.updateInterface()
     }
     
@@ -115,7 +120,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
-        self.imageView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.3).isActive = true
+        self.imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
     }
     
     func setupNameLabel() {
@@ -156,7 +161,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.view.addSubview(self.createdAtLabel)
         
         
-        self.createdAtLabel.topAnchor.constraint(equalTo: self.locationLabel.bottomAnchor, constant: 10).isActive = true
+        self.createdAtLabel.topAnchor.constraint(equalTo: self.locationLabel.bottomAnchor, constant: 20).isActive = true
         
         self.createdAtLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
         
@@ -168,7 +173,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         self.view.addSubview(self.episodesLabel)
         
-        self.episodesLabel.topAnchor.constraint(equalTo: self.createdAtLabel.bottomAnchor, constant: 40).isActive = true
+        self.episodesLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
         
         self.episodesLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
         
