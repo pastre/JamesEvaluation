@@ -26,6 +26,28 @@ class JamesEvaluationUITests: XCTestCase {
     
     func testHomeScreen() {
         
+        XCTAssert(app.staticTexts["Characters"].exists)
+        XCTAssert(app.staticTexts["Characters"].isHittable)
+        
+        XCTAssert(app.collectionViews["CharactersCollectionView"].exists)
+        XCTAssert(app.collectionViews["CharactersCollectionView"].isHittable)
+        
+        
+        let sampleCell = app.cells["CharactersCollectionViewCell"].firstMatch
+        
+        XCTAssert(sampleCell.exists)
+        XCTAssert(sampleCell.isHittable)
+        
+        XCTAssert(sampleCell.images.count == 1)
+        XCTAssert(sampleCell.staticTexts.count == 2)
+        
+        sampleCell.tap()
+                
     }
     
+    func testCharacterScreen() {
+        app.cells["CharactersCollectionViewCell"].firstMatch.tap()
+        
+        
+    }
 }

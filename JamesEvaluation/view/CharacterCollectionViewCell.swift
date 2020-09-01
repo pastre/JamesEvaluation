@@ -24,6 +24,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
         
+        view.accessibilityIdentifier = "characterImageView"
         return view
     }()
     
@@ -36,6 +37,8 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         
         view.font = .preferredFont(forTextStyle: .title3)
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.accessibilityIdentifier = "characterNameLabel"
         
         return view
     }()
@@ -51,6 +54,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         view.font = .preferredFont(forTextStyle: .body)
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        view.accessibilityIdentifier = "characterStatusLabel"
         return view
     }()
     
@@ -66,6 +70,8 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         view.font = .systemFont(ofSize: 18, weight: .light)
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        view.accessibilityIdentifier = "locationHintLabel"
+        
         return view
     }()
     
@@ -78,6 +84,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         
         view.font = .systemFont(ofSize: 20, weight: .medium)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "locationLabel"
         
         return view
     }()
@@ -158,6 +165,8 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         self.setupImage()
         self.setupNameLabel()
         self.setupStatusLabel()
+        
+        self.accessibilityIdentifier = "CharactersCollectionViewCell"
     }
     
     override init(frame: CGRect) {
