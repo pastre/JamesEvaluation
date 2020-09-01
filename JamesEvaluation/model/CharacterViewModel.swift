@@ -64,6 +64,20 @@ class CharacterViewModel {
         self.delegate?.updateInterface()
     }
     
+    func getSpecies() -> String {
+    self.unpackUnknown(value: self.character.species, name: "Species") }
+    
+    func getGender() -> String {
+        self.unpackUnknown(value: self.character.gender, name: "Gender")
+    }
+    
+    func getStatus() -> String {
+        
+        self.unpackUnknown(value: self.character.status, name: "Status")
+    }
+    
+    func unpackUnknown(value: String, name: String) -> String {
+     value == "unknown" ? "Unknown \(name)" : value}
     
     
 }

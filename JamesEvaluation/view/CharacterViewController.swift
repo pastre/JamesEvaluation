@@ -188,7 +188,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         }
         
         self.characterNameLabel.text = self.model.character.name
-        self.characterStatusLabel.text = self.model.character.status + " - " + self.model.character.gender + " - " + self.model.character.species
+        self.characterStatusLabel.text = self.model.getStatus() + " - " + self.model.getGender() + " - " + self.model.getSpecies()
        
         self.episodesLabel.text = "Appears in \(self.model.character.episode.count) episodes"
         self.setAttributedText( "📍 Originally from ", bold: self.model.character.origin.name, on: self.originLabel)

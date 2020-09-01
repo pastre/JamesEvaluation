@@ -60,7 +60,6 @@ class ViewController: UIViewController, CharacterManagerDelegate {
     // MARK: - CharacterManagerDelegate
     
     func onCharacterPicked(_ character: Character) {
-        // TODO: Change to navigation
         let vc = CharacterViewController()
         
         vc.model = CharacterViewModel(character: character)
