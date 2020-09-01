@@ -8,12 +8,10 @@
 
 import Foundation
 
-class FavoriteManager {
-    static let instance = FavoriteManager()
+class StorageFacade {
+    
     private let favoritesKey = "favorites"
     private let defaults =  UserDefaults.standard
-    
-    private init() { }
     
     func isFavorite(character: Character) -> Bool {
         return self.getFavorites().contains {

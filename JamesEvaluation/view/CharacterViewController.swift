@@ -92,6 +92,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         self.model.delegate = self
         
+        self.setupFavoriteButton()
         self.setupImageView()
         self.setupNameLabel()
         self.setupStatusLabel()
@@ -112,6 +113,17 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.updateInterface()
     }
     
+    @objc func onFavoriteChanged(){
+        self.model.onFavorite()
+        self.setupFavoriteButton()
+    }
+    
+    //MARK: - Callbacks
+    
+    func setupFavoriteButton() {
+        
+        self.navigationItem.rightBarButtonItem = .init(image: UIImage(systemName: self.model.isFavorite() ? "star.fill" : "star"), style: .done, target: self, action: #selector(self.onFavoriteChanged))
+    }
     
     func setupImageView() {
         self.view.addSubview(self.imageView)
