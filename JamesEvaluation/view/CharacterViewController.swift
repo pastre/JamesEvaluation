@@ -63,6 +63,15 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         return view
     }()
+    private let createdAtLabel: UILabel = {
+        let view = UILabel()
+        
+        view.numberOfLines = 2
+        view.font = .preferredFont(forTextStyle: .callout)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
     
     
     override func viewDidLoad() {
@@ -76,6 +85,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.setupNameLabel()
         self.setupStatusLabel()
         self.setupLocationLabels()
+        self.setupCreatedAtLabel()
         
         // Do any additional setup after loading the view.
     }
@@ -130,6 +140,18 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
     }
     
+    func setupCreatedAtLabel() {
+        self.view.addSubview(self.createdAtLabel)
+        
+        
+        self.createdAtLabel.topAnchor.constraint(equalTo: self.locationLabel.bottomAnchor, constant: 10).isActive = true
+        
+        self.createdAtLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
+        
+        self.createdAtLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+        
+    }
+    
     //MARK: - CharacterViewDelegate
     func updateInterface() {
         if let image = self.model.character.loadedImage {
@@ -139,17 +161,25 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.characterNameLabel.text = self.model.character.name
         self.characterStatusLabel.text = self.model.character.status + " - " + self.model.character.gender + " - " + self.model.character.species
        
-        var str =  NSMutableAttributedString(string: "📍 Originally from " )
-        var boldText = NSAttributedString(string: self.model.character.origin.name, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 17)])
+        self.setAttributedText( "📍 Originally from ", bold: self.model.character.origin.name, on: self.originLabel)
+        
+        self.setAttributedText("📍 Currently at ", bold: self.model.character.location.name, on: self.locationLabel)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/YYYY HH:mm"
+        
+        self.setAttributedText("🕰 Created at ", bold: formatter.string(from: self.model.character.createdAt()), on: self.createdAtLabel)
+    }
+    
+    private func setAttributedText(_ normal: String, bold: String, on label: UILabel) {
+        
+        let str =  NSMutableAttributedString(string: normal )
+        let boldText = NSAttributedString(string: bold, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 17)])
+        
         
         str.append(boldText)
-        self.originLabel.attributedText = str
-
-        str =  NSMutableAttributedString(string:"📍 Currently at ")
-        boldText =  NSAttributedString(string: self.model.character.location.name, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 17)])
+        label.attributedText = str
         
-        str.append(boldText)
-        self.locationLabel.attributedText = str
     }
     
 

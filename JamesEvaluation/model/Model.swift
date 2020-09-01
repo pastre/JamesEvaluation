@@ -53,6 +53,10 @@ class Character: Codable {
     var loadedImage: Data?
     
     
+    func createdAt() -> Date { 
+        return ISO8601DateFormatter().date(from: self.created.replacingOccurrences(of: ".", with: "+"))!
+    }
+    
     func imageURL() -> URL { URL(string: image)!}
 }
 
@@ -66,6 +70,7 @@ struct CharacterResponseMetadata: Codable {
         if let next = self.next { return URL(string: next) }
         return nil
     }
+    
     
     static func getFirst() ->  CharacterResponseMetadata {
          CharacterResponseMetadata(count: 0, pages: 0, prev: nil, next: "https://rickandmortyapi.com/api/character/")
