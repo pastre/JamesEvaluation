@@ -34,7 +34,7 @@ class CharacterCollectionViewController: UIViewController, CharacterManagerDeleg
         indicator.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         indicator.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 1, height: 1)
         view.layer.shadowRadius = 3
@@ -69,7 +69,7 @@ class CharacterCollectionViewController: UIViewController, CharacterManagerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemBackground
         
         self.setupTableView()
         self.setupLoadingView()
@@ -102,8 +102,9 @@ class CharacterCollectionViewController: UIViewController, CharacterManagerDeleg
         self.charactersCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.charactersCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
             
-        
         self.charactersCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    
+        self.charactersCollectionView.accessibilityIdentifier = "CharactersCollectionView"
     }
     
     func setupLoadingView() {

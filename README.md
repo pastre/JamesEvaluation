@@ -17,7 +17,7 @@ Consome a API: https://rickandmortyapi.com
 
 ❌  Testes de Snapshot
 
-❌  Testes de UI
+✔️  Testes de UI
 
 ❌ Suportar landscape e portrait mode.
 

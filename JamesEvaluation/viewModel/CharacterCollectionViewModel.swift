@@ -42,7 +42,7 @@ class CharacterCollectionViewModel: NSObject, UICollectionViewDelegateFlowLayout
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CharacterCollectionViewCell
         
         cell.character = self.characters[indexPath.item]
-        cell.backgroundColor = .white
+        cell.backgroundColor = .secondarySystemBackground
         
         cell.contentView.layer.cornerRadius = 20
         cell.contentView.layer.masksToBounds = true
@@ -67,7 +67,7 @@ class CharacterCollectionViewModel: NSObject, UICollectionViewDelegateFlowLayout
             return CGSize(width: collectionView.frame.width * 0.3, height: collectionView.frame.height * 0.1)
         }
         
-        return CGSize(width: collectionView.frame.width * 0.95, height: collectionView.frame.height * 0.2)
+        return CGSize(width: collectionView.frame.width * 0.95 - 20, height: collectionView.frame.height * 0.2)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
