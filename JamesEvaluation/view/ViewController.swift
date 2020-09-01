@@ -50,11 +50,18 @@ class CharacterCollectionViewController: UIViewController, CharacterManagerDeleg
     
     var charactersManager: CharacterLoader!
     
-    func configure(manager: CharacterLoader.Type) {
+    init(manager: CharacterLoader.Type) {
+        super.init(nibName: nil, bundle: nil)
+        
         let instance = manager.init(self.charactersCollectionView)
         
         self.charactersManager = instance
         self.charactersManager.delegate = self
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     // MARK: - UIViewController lifecycle
