@@ -178,7 +178,6 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.episodesLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
         
         self.episodesLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
-        
     }
     
     //MARK: - CharacterViewDelegate
@@ -211,18 +210,4 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         label.attributedText = str
         
     }
-    
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

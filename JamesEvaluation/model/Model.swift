@@ -35,7 +35,11 @@ struct CharacterLocation: Codable {
     var name, url: String
 }
 
-class Character: Codable {
+class Character: Codable, Equatable {
+    static func == (lhs: Character, rhs: Character) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     var id: Int
     var name: String
     var image: String
@@ -53,7 +57,7 @@ class Character: Codable {
     var loadedImage: Data?
     
     
-    func createdAt() -> Date { 
+    func createdAt() -> Date {
         return ISO8601DateFormatter().date(from: self.created.replacingOccurrences(of: ".", with: "+"))!
     }
     
