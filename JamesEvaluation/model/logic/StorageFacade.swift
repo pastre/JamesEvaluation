@@ -51,6 +51,11 @@ class StorageFacade {
         }
     }
     
+    func clearFavorites() {
+        self.favorites.removeAll()
+        self.setFavorites()
+    }
+    
     private func loadFavorites() -> [Character] {
         if let data = self.defaults.data(forKey: favoritesKey), let decoded = try? JSONDecoder().decode([Character].self, from: data) {
             return decoded

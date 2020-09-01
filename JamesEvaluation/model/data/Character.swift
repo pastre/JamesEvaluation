@@ -29,7 +29,6 @@ class Character: Codable, Equatable {
     
     var loadedImage: Data?
     
-    
     func createdAt() -> Date {
         return ISO8601DateFormatter().date(from: self.created.replacingOccurrences(of: ".", with: "+"))!
     }

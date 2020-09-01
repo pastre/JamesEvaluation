@@ -11,7 +11,7 @@ import Foundation
 class APICharacterFetcher {
     
     private var apiFacade = APIFacade()
-    private var currentResponse: CharacterResponseMetadata!
+    public var currentResponse: CharacterResponseMetadata!
     private var canRequest: Bool = true
     
     init() {
