@@ -27,6 +27,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         let view = UILabel()
         
         view.font = .preferredFont(forTextStyle: .largeTitle)
+        view.numberOfLines = 2
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -35,10 +36,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
     private let characterStatusLabel: UILabel = {
         let view = UILabel()
         
-        view.numberOfLines = 1
-        view.minimumScaleFactor = 0.5
-        view.adjustsFontSizeToFitWidth = true
-        
+        view.numberOfLines = 2
         view.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         view.font = .preferredFont(forTextStyle: .body)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -50,11 +48,8 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
     private let originLabel: UILabel = {
         let view = UILabel()
         
-        view.numberOfLines = 1
-        view.minimumScaleFactor = 0.5
-        view.adjustsFontSizeToFitWidth = true
-        
-        view.font = .systemFont(ofSize: 20, weight: .medium)
+        view.numberOfLines = 2
+        view.font = .preferredFont(forTextStyle: .callout)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -62,11 +57,8 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
     private let locationLabel: UILabel = {
         let view = UILabel()
         
-        view.numberOfLines = 1
-        view.minimumScaleFactor = 0.5
-        view.adjustsFontSizeToFitWidth = true
-        
-        view.font = .systemFont(ofSize: 20, weight: .medium)
+        view.numberOfLines = 2
+        view.font = .preferredFont(forTextStyle: .callout)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -110,6 +102,8 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.characterNameLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 20).isActive = true
         
         self.characterNameLabel.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 20).isActive = true
+        
+        self.characterNameLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
     }
     
     func setupStatusLabel() {
@@ -124,6 +118,16 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.view.addSubview(self.originLabel)
         self.view.addSubview(self.locationLabel)
         
+        self.originLabel.topAnchor.constraint(equalTo: self.characterStatusLabel.bottomAnchor, constant: 40).isActive = true
+        
+        self.locationLabel.topAnchor.constraint(equalTo: self.originLabel.bottomAnchor, constant: 10).isActive = true
+        
+        self.originLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
+        self.locationLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
+        
+        self.originLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+        self.locationLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+
         
         
     }
@@ -136,6 +140,18 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         self.characterNameLabel.text = self.model.character.name
         self.characterStatusLabel.text = self.model.character.status + " - " + self.model.character.gender + " - " + self.model.character.species
+       
+        var str =  NSMutableAttributedString(string: "📍 Originally from " )
+        var boldText = NSAttributedString(string: self.model.character.origin.name, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 17)])
+        
+        str.append(boldText)
+        self.originLabel.attributedText = str
+
+        str =  NSMutableAttributedString(string:"📍 Currently at ")
+        boldText =  NSAttributedString(string: self.model.character.location.name, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 17)])
+        
+        str.append(boldText)
+        self.locationLabel.attributedText = str
     }
     
 

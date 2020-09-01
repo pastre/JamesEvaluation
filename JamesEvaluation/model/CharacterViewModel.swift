@@ -11,6 +11,7 @@ import Foundation
 protocol CharacterViewModelDelegate: class {
     func updateInterface()
 }
+
 class CharacterViewModel {
     
     private var location, origin: Location?
