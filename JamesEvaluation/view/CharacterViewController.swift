@@ -92,6 +92,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         self.model.delegate = self
         
+        self.setupFavoriteButton()
         self.setupImageView()
         self.setupNameLabel()
         self.setupStatusLabel()
@@ -112,6 +113,17 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.updateInterface()
     }
     
+    @objc func onFavoriteChanged(){
+        self.model.onFavorite()
+        self.setupFavoriteButton()
+    }
+    
+    //MARK: - Callbacks
+    
+    func setupFavoriteButton() {
+        
+        self.navigationItem.rightBarButtonItem = .init(image: UIImage(systemName: self.model.isFavorite() ? "star.fill" : "star"), style: .done, target: self, action: #selector(self.onFavoriteChanged))
+    }
     
     func setupImageView() {
         self.view.addSubview(self.imageView)
@@ -145,9 +157,10 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.view.addSubview(self.originLabel)
         self.view.addSubview(self.locationLabel)
         
-        self.originLabel.topAnchor.constraint(equalTo: self.characterStatusLabel.bottomAnchor, constant: 40).isActive = true
         
-        self.locationLabel.topAnchor.constraint(equalTo: self.originLabel.bottomAnchor, constant: 10).isActive = true
+        self.originLabel.topAnchor.constraint(equalTo: self.characterStatusLabel.bottomAnchor, constant: 10).isActive = true
+        
+        self.locationLabel.topAnchor.constraint(equalTo: self.originLabel.bottomAnchor).isActive = true
         
         self.originLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
         self.locationLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
@@ -161,11 +174,12 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.view.addSubview(self.createdAtLabel)
         
         
-        self.createdAtLabel.topAnchor.constraint(equalTo: self.locationLabel.bottomAnchor, constant: 20).isActive = true
+        self.createdAtLabel.topAnchor.constraint(equalTo: self.locationLabel.bottomAnchor).isActive = true
         
         self.createdAtLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
         
         self.createdAtLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+        
         
     }
     
@@ -173,12 +187,18 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         self.view.addSubview(self.episodesLabel)
         
-        self.episodesLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
+        self.episodesLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         self.episodesLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
         
         self.episodesLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
         
+        self.episodesLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.05).isActive = true
+        
+        
+        self.locationLabel.heightAnchor.constraint(equalTo: self.episodesLabel.heightAnchor).isActive = true
+        self.originLabel.heightAnchor.constraint(equalTo: self.episodesLabel.heightAnchor).isActive = true
+        self.createdAtLabel.heightAnchor.constraint(equalTo: self.episodesLabel.heightAnchor).isActive = true
     }
     
     //MARK: - CharacterViewDelegate
@@ -211,18 +231,4 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         label.attributedText = str
         
     }
-    
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

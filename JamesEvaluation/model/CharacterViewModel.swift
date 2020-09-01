@@ -18,6 +18,7 @@ class CharacterViewModel {
     private var episodes: [Episode] = []
     
     private let api = APIFacade()
+    private let storage = StorageFacade.instance
     
     var delegate: CharacterViewModelDelegate?
     var character: Character!
@@ -59,6 +60,14 @@ class CharacterViewModel {
         }
     }
     
+    func onFavorite() {
+        
+        if self.isFavorite() {
+            self.storage.removeFavorite(character: self.character)
+        } else {
+            self.storage.addFavorite(character: self.character)
+        }
+    }
     
     func onUIComponentLoaded() {
         self.delegate?.updateInterface()
@@ -70,6 +79,8 @@ class CharacterViewModel {
     func getGender() -> String {
         self.unpackUnknown(value: self.character.gender, name: "Gender")
     }
+    
+    func isFavorite() -> Bool { self.storage.isFavorite(character: self.character) }
     
     func getStatus() -> String {
         

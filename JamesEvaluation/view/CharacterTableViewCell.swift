@@ -155,12 +155,9 @@ class CharacterCollectionViewCell: UICollectionViewCell {
     }
     
     private func commonInit() {
-        
         self.setupImage()
         self.setupNameLabel()
         self.setupStatusLabel()
-//        self.setupLocationLabel()
-        
     }
     
     override init(frame: CGRect) {

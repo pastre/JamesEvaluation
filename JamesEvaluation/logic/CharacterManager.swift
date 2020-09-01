@@ -10,15 +10,22 @@ import UIKit
 
 protocol CharacterManagerDelegate: class {
     func onCharacterPicked(_ character: Character)
+    func onStartLoading()
+    func onDoneLoading()
 }
 
-class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+protocol CharacterLoader: CharacterCollectionViewManager {
+
+    func loadCharacters()
+
+}
+
+class CharacterCollectionViewManager: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     private let cellIdentifier = "CHARACTER_CELL"
-    private var characterProvider: CharacterProvider!
     
-    private var characters: [Character] = []
-    private var collectionView: UICollectionView!
+    var characters: [Character] = []
+    var collectionView: UICollectionView!
     
     var delegate: CharacterManagerDelegate?
     
@@ -31,20 +38,6 @@ class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollecti
         collectionView.dataSource = self
         
         collectionView.register(CharacterCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        
-        self.characterProvider = CharacterLoader()
-        
-    }
-    
-    // MARK: - UI methods
-    
-    func loadCharacters() {
-        self.characterProvider.loadCharacters { (newCharacters, error) in
-            guard let characters = newCharacters else { return }
-
-            self.characters.append(contentsOf: characters)
-            self.collectionView.reloadData()
-        }
     }
     
     //MARK: - collectionView Datasource & delegate
@@ -93,3 +86,52 @@ class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollecti
     }
 }
 
+class APICharacterLoader: CharacterCollectionViewManager, CharacterLoader  {
+    
+    var characterProvider: CharacterProvider!
+    var isLoading: Bool = false
+    
+    override init(_ collectionView: UICollectionView) {
+        super.init(collectionView)
+        
+        self.characterProvider = CharacterFetcher()
+    }
+    
+    func loadCharacters() {
+        self.delegate?.onStartLoading()
+        self.characterProvider.loadCharacters { (newCharacters, error) in
+            guard let characters = newCharacters else { return }
+
+            self.characters.append(contentsOf: characters)
+            self.delegate?.onDoneLoading()
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if indexPath.item == self.characters.count - 1 {
+            self.loadCharacters()
+        }
+    }
+    
+}
+
+class FavoriteCharacterLoader: CharacterCollectionViewManager, CharacterLoader {
+    
+    let storage = StorageFacade.instance
+    override init(_ collectionView: UICollectionView) {
+        super.init(collectionView)
+        
+        NotificationCenter.default.addObserver(forName: StorageFacade.favoritesDidChange, object: nil, queue: nil) { (notification) in
+            self.loadCharacters()
+        }
+    }
+    func loadCharacters() {
+        
+        self.characters = self.storage.getFavorites()
+        
+        self.collectionView.reloadData()
+        
+    }
+}

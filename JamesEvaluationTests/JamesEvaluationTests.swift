@@ -11,7 +11,7 @@ import XCTest
 
 class JamesEvaluationTests: XCTestCase {
 
-    var loader = CharacterLoader()
+    var loader = CharacterFetcher()
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -23,7 +23,7 @@ class JamesEvaluationTests: XCTestCase {
     func testLoadLastCharacters() throws {
         let expectation = XCTestExpectation(description: "Load last characters")
         
-        let loader = CharacterLoader()
+        let loader = CharacterFetcher()
         
         loader.loadCharacters { (characters, error) in
         
@@ -63,7 +63,7 @@ class JamesEvaluationTests: XCTestCase {
     func testCharacterLoading() throws {
         let expectation = XCTestExpectation(description: "Load 4 character pages")
         
-        let loader = CharacterLoader()
+        let loader = CharacterFetcher()
         loader.loadCharacters { (newCharacters, error) in
             if let error = error {
                 XCTFail("Failed to load!, \(error)")

@@ -19,9 +19,42 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        let view = ViewController()
+        let tabBar = UITabBarController()
+        let allCharactersVC = ViewController()
+        let favoritesCharactersVC = ViewController()
         
-        self.window?.rootViewController = UINavigationController(rootViewController: view)
+        let names = [
+            "Characters",
+            "Favorites"
+        ]
+        
+        
+        
+        let icons = [
+            "list.bullet",
+            "star"
+        ]
+        
+        allCharactersVC.configure(manager: APICharacterLoader(allCharactersVC.charactersCollectionView))
+        
+        favoritesCharactersVC.configure(manager: FavoriteCharacterLoader(favoritesCharactersVC.charactersCollectionView))
+        
+        tabBar.viewControllers =  [
+            UINavigationController(rootViewController: allCharactersVC),
+            UINavigationController(rootViewController: favoritesCharactersVC)
+        ]
+        
+        allCharactersVC.navigationItem.title =  "Characters"
+        favoritesCharactersVC.navigationItem.title = "Favorites"
+        
+        tabBar.viewControllers?.enumerated().forEach { (i, vc) in
+            let image = UIImage(systemName: icons[i])
+            
+            vc.tabBarItem = UITabBarItem(title: names[i], image: image, selectedImage: image)
+        }
+        
+        
+        self.window?.rootViewController = tabBar
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
