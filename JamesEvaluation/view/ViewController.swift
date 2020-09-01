@@ -33,6 +33,9 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         self.charactersManager = CharacterManager(self.charactersCollectionView)
         self.charactersManager.delegate = self
         self.setupTableView()
+        
+        self.charactersManager.loadCharacters()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,7 +44,6 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         self.navigationItem.title = "Characters"
         self.navigationItem.largeTitleDisplayMode = .always
         
-        self.charactersManager.loadCharacters()
     }
     
     // MARK: - Setup
