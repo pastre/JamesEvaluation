@@ -12,13 +12,18 @@ protocol CharacterManagerDelegate: class {
     func onCharacterPicked(_ character: Character)
 }
 
-class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+protocol CharacterLoader: CharacterCollectionViewManager {
+
+    func loadCharacters()
+
+}
+
+class CharacterCollectionViewManager: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     private let cellIdentifier = "CHARACTER_CELL"
-    private var characterProvider: CharacterProvider!
     
-    private var characters: [Character] = []
-    private var collectionView: UICollectionView!
+    var characters: [Character] = []
+    var collectionView: UICollectionView!
     
     var delegate: CharacterManagerDelegate?
     
@@ -31,20 +36,6 @@ class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollecti
         collectionView.dataSource = self
         
         collectionView.register(CharacterCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        
-        self.characterProvider = CharacterLoader()
-        
-    }
-    
-    // MARK: - UI methods
-    
-    func loadCharacters() {
-        self.characterProvider.loadCharacters { (newCharacters, error) in
-            guard let characters = newCharacters else { return }
-
-            self.characters.append(contentsOf: characters)
-            self.collectionView.reloadData()
-        }
     }
     
     //MARK: - collectionView Datasource & delegate
@@ -93,3 +84,35 @@ class CharacterManager: NSObject, UICollectionViewDelegateFlowLayout, UICollecti
     }
 }
 
+class APICharacterLoader: CharacterCollectionViewManager, CharacterLoader  {
+    
+    var characterProvider: CharacterProvider!
+    
+    override init(_ collectionView: UICollectionView) {
+        super.init(collectionView)
+        
+        self.characterProvider = CharacterFetcher()
+    }
+    
+    func loadCharacters() {
+           self.characterProvider.loadCharacters { (newCharacters, error) in
+               guard let characters = newCharacters else { return }
+
+               self.characters.append(contentsOf: characters)
+               self.collectionView.reloadData()
+           }
+       }
+}
+
+class FavoriteCharacterLoader: CharacterCollectionViewManager, CharacterLoader {
+    
+    let storage = StorageFacade()
+    
+    func loadCharacters() {
+        
+        self.characters = self.storage.getFavorites()
+        
+        self.collectionView.reloadData()
+        
+    }
+}

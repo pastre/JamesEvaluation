@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, CharacterManagerDelegate {
     
-    var charactersCollectionView: UICollectionView = {
+    let charactersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -20,8 +20,13 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         return collectionView
     }()
     
-    var charactersManager: CharacterManager!
     
+    var charactersManager: CharacterLoader!
+    
+    func configure(manager: CharacterLoader) {
+        self.charactersManager = manager
+        self.charactersManager.delegate = self
+    }
     // MARK: - UIViewController lifecycle
     
     override func viewDidLoad() {
@@ -29,11 +34,7 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         
         self.view.backgroundColor = .white
         
-        
-        self.charactersManager = CharacterManager(self.charactersCollectionView)
-        self.charactersManager.delegate = self
         self.setupTableView()
-        
         self.charactersManager.loadCharacters()
         
     }
