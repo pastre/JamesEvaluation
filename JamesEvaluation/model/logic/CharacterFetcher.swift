@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CharacterFetcher: CharacterProvider {
+class CharacterFetcher {
     
     var apiFacade = APIFacade()
     var currentResponse: CharacterResponseMetadata!

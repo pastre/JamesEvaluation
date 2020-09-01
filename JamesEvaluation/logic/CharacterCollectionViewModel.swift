@@ -1,26 +1,14 @@
 //
-//  CharacterCollectionViewManager.swift
+//  CharacterCollectionViewModel.swift
 //  JamesEvaluation
 //
-//  Created by Bruno Pastre on 31/08/20.
+//  Created by Bruno Pastre on 01/09/20.
 //  Copyright © 2020 Bruno Pastre. All rights reserved.
 //
 
 import UIKit
 
-protocol CharacterManagerDelegate: class {
-    func onCharacterPicked(_ character: Character)
-    func onStartLoading()
-    func onDoneLoading()
-}
-
-protocol CharacterLoader: CharacterCollectionViewManager {
-
-    func loadCharacters()
-
-}
-
-class CharacterCollectionViewManager: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class CharacterCollectionViewModel: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     private let cellIdentifier = "CHARACTER_CELL"
     
@@ -83,55 +71,5 @@ class CharacterCollectionViewManager: NSObject, UICollectionViewDelegateFlowLayo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
-    }
-}
-
-class APICharacterLoader: CharacterCollectionViewManager, CharacterLoader  {
-    
-    var characterProvider: CharacterProvider!
-    var isLoading: Bool = false
-    
-    override init(_ collectionView: UICollectionView) {
-        super.init(collectionView)
-        
-        self.characterProvider = CharacterFetcher()
-    }
-    
-    func loadCharacters() {
-        self.delegate?.onStartLoading()
-        self.characterProvider.loadCharacters { (newCharacters, error) in
-            guard let characters = newCharacters else { return }
-
-            self.characters.append(contentsOf: characters)
-            self.delegate?.onDoneLoading()
-            self.collectionView.reloadData()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        if indexPath.item == self.characters.count - 1 {
-            self.loadCharacters()
-        }
-    }
-    
-}
-
-class FavoriteCharacterLoader: CharacterCollectionViewManager, CharacterLoader {
-    
-    let storage = StorageFacade.instance
-    override init(_ collectionView: UICollectionView) {
-        super.init(collectionView)
-        
-        NotificationCenter.default.addObserver(forName: StorageFacade.favoritesDidChange, object: nil, queue: nil) { (notification) in
-            self.loadCharacters()
-        }
-    }
-    func loadCharacters() {
-        
-        self.characters = self.storage.getFavorites()
-        
-        self.collectionView.reloadData()
-        
     }
 }

@@ -35,9 +35,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             "star"
         ]
         
-        allCharactersVC.configure(manager: APICharacterLoader(allCharactersVC.charactersCollectionView))
+        allCharactersVC.configure(manager: APICharacterCollectionViewModel(allCharactersVC.charactersCollectionView))
         
-        favoritesCharactersVC.configure(manager: FavoriteCharacterLoader(favoritesCharactersVC.charactersCollectionView))
+        favoritesCharactersVC.configure(manager: FavoriteCharacterCollectionViewModel(favoritesCharactersVC.charactersCollectionView))
         
         tabBar.viewControllers =  [
             UINavigationController(rootViewController: allCharactersVC),
