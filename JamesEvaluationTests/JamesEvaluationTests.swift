@@ -64,6 +64,8 @@ class JamesEvaluationTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Load 4 character pages")
         
         let loader = APICharacterFetcher()
+        
+        
         loader.loadCharacters { (newCharacters, error) in
             if let error = error {
                 XCTFail("Failed to load!, \(error)")

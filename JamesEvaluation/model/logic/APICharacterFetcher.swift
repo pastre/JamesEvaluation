@@ -10,9 +10,9 @@ import Foundation
 
 class APICharacterFetcher {
     
-    var apiFacade = APIFacade()
-    var currentResponse: CharacterResponseMetadata!
-    var canRequest: Bool = true
+    private var apiFacade = APIFacade()
+    private var currentResponse: CharacterResponseMetadata!
+    private var canRequest: Bool = true
     
     init() {
         self.currentResponse = CharacterResponseMetadata.getFirst()
