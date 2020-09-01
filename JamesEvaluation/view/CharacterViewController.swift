@@ -100,7 +100,6 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.setupCreatedAtLabel()
         self.setupEpisodesLabel()
         
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,7 +121,12 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
     
     func setupFavoriteButton() {
         
-        self.navigationItem.rightBarButtonItem = .init(image: UIImage(systemName: self.model.isFavorite() ? "star.fill" : "star"), style: .done, target: self, action: #selector(self.onFavoriteChanged))
+        let image = UIImage(systemName: self.model.isFavorite() ? "star.fill" : "star")
+        image?.accessibilityIdentifier = "starButton"
+        
+        self.navigationItem.rightBarButtonItem = .init(image: image, style: .done, target: self, action: #selector(self.onFavoriteChanged))
+        
+        self.navigationItem.rightBarButtonItem?.accessibilityIdentifier = "favoriteMenuItem"
     }
     
     func setupImageView() {
