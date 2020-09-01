@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, CharacterManagerDelegate {
+class CharacterCollectionViewController: UIViewController, CharacterManagerDelegate {
     
     let charactersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -50,10 +50,20 @@ class ViewController: UIViewController, CharacterManagerDelegate {
     
     var charactersManager: CharacterLoader!
     
-    func configure(manager: CharacterLoader) {
-        self.charactersManager = manager
+    init(manager: CharacterLoader.Type) {
+        super.init(nibName: nil, bundle: nil)
+        
+        let instance = manager.init(self.charactersCollectionView)
+        
+        self.charactersManager = instance
         self.charactersManager.delegate = self
+        
     }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
     // MARK: - UIViewController lifecycle
     
     override func viewDidLoad() {

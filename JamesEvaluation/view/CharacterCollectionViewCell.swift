@@ -1,5 +1,5 @@
 //
-//  CharacterTableViewCell.swift
+//  CharacterCollectionViewCell.swift
 //  JamesEvaluation
 //
 //  Created by Bruno Pastre on 31/08/20.
