@@ -25,11 +25,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
     
     private let characterNameLabel: UILabel = {
         let view = UILabel()
-//
-//        view.numberOfLines = 2
-//        view.minimumScaleFactor = 0.5
-//        view.adjustsFontSizeToFitWidth = true
-//
+        
         view.font = .preferredFont(forTextStyle: .largeTitle)
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -44,27 +40,25 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         view.adjustsFontSizeToFitWidth = true
         
         view.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        view.font = .systemFont(ofSize: 20, weight: .light)
+        view.font = .preferredFont(forTextStyle: .body)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    private let locationHintLabel: UILabel = {
+    
+    private let originLabel: UILabel = {
         let view = UILabel()
         
         view.numberOfLines = 1
-        view.minimumScaleFactor = 0.2
+        view.minimumScaleFactor = 0.5
         view.adjustsFontSizeToFitWidth = true
         
-        view.text = "Last known location:"
-        view.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        view.font = .systemFont(ofSize: 18, weight: .light)
+        view.font = .systemFont(ofSize: 20, weight: .medium)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
-    
     private let locationLabel: UILabel = {
         let view = UILabel()
         
@@ -88,6 +82,8 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         self.setupImageView()
         self.setupNameLabel()
+        self.setupStatusLabel()
+        self.setupLocationLabels()
         
         // Do any additional setup after loading the view.
     }
@@ -96,6 +92,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         super.viewWillAppear(animated)
         self.updateInterface()
     }
+    
     
     func setupImageView() {
         self.view.addSubview(self.imageView)
@@ -115,6 +112,22 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.characterNameLabel.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 20).isActive = true
     }
     
+    func setupStatusLabel() {
+        self.view.addSubview(self.characterStatusLabel)
+        
+        self.characterStatusLabel.topAnchor.constraint(equalTo: self.characterNameLabel.bottomAnchor).isActive = true
+        
+        self.characterStatusLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
+    }
+    
+    func setupLocationLabels() {
+        self.view.addSubview(self.originLabel)
+        self.view.addSubview(self.locationLabel)
+        
+        
+        
+    }
+    
     //MARK: - CharacterViewDelegate
     func updateInterface() {
         if let image = self.model.character.loadedImage {
@@ -122,6 +135,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         }
         
         self.characterNameLabel.text = self.model.character.name
+        self.characterStatusLabel.text = self.model.character.status + " - " + self.model.character.gender + " - " + self.model.character.species
     }
     
 

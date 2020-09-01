@@ -34,7 +34,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         view.minimumScaleFactor = 0.5
         view.adjustsFontSizeToFitWidth = true
         
-        view.font = .systemFont(ofSize: 24, weight: .bold)
+        view.font = .preferredFont(forTextStyle: .title3)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -48,7 +48,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         view.adjustsFontSizeToFitWidth = true
         
         view.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        view.font = .systemFont(ofSize: 20, weight: .light)
+        view.font = .preferredFont(forTextStyle: .body)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
