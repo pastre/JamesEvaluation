@@ -10,7 +10,6 @@ import XCTest
 @testable import JamesEvaluation
 
 class JamesEvaluationTests: XCTestCase {
-
     
     func testCharacterLoading() {
         let mocked = MockCharacterCollectionViewModel(UICollectionView(frame: .zero, collectionViewLayout: .init()))
@@ -162,5 +161,42 @@ class JamesEvaluationTests: XCTestCase {
         }
         
         self.wait(for: [expectation], timeout: 20)
+    }
+    
+    func testFavoriteLoading() throws {
+        let loader = FavoriteCharacterCollectionViewModel(.init(frame: .zero, collectionViewLayout: .init()))
+        let storage = StorageFacade.instance
+        
+        let mocked = MockCharacterCollectionViewModel(UICollectionView(frame: .zero, collectionViewLayout: .init()))
+        
+        mocked.loadCharacters()
+        
+        guard let character = mocked.characters.first,  let id = mocked.getMockedDict()[0]["id"] as? Int else {
+            XCTAssert(false)
+            return
+        }
+        
+        storage.clearFavorites()
+        
+        XCTAssert(loader.characters.isEmpty)
+        
+        loader.loadCharacters()
+        XCTAssert(loader.characters.isEmpty)
+        
+        storage.addFavorite(character: character)
+        
+        loader.loadCharacters()
+        XCTAssert(loader.characters.count == 1)
+        
+        loader.loadCharacters()
+        XCTAssert(loader.characters.count == 1)
+        
+        XCTAssert(loader.characters.first?.id == id)
+        
+        storage.removeFavorite(character: character)
+        XCTAssert(loader.characters.isEmpty)
+        
+        
+        
     }
 }
