@@ -20,7 +20,6 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         return collectionView
     }()
     
-    
     var charactersManager: CharacterLoader!
     
     func configure(manager: CharacterLoader) {
@@ -44,7 +43,6 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Characters"
         self.navigationItem.largeTitleDisplayMode = .always
         
         self.charactersCollectionView.reloadData()
@@ -55,7 +53,7 @@ class ViewController: UIViewController, CharacterManagerDelegate {
     func setupTableView() {
         self.view.addSubview(self.charactersCollectionView)
         
-        self.charactersCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20).isActive = true
+        self.charactersCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         self.charactersCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.charactersCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         self.charactersCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
