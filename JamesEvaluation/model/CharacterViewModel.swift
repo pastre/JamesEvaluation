@@ -18,7 +18,7 @@ class CharacterViewModel {
     private var episodes: [Episode] = []
     
     private let api = APIFacade()
-    private let storage = StorageFacade()
+    private let storage = StorageFacade.instance
     
     var delegate: CharacterViewModelDelegate?
     var character: Character!
@@ -61,15 +61,12 @@ class CharacterViewModel {
     }
     
     func onFavorite() {
-        var favorites = self.storage.getFavorites()
         
         if self.isFavorite() {
-            favorites.removeAll { $0 == self.character }
+            self.storage.removeFavorite(character: self.character)
         } else {
-            favorites.append(self.character)
+            self.storage.addFavorite(character: self.character)
         }
-        
-        self.storage.setFavorites(to: favorites)
     }
     
     func onUIComponentLoaded() {

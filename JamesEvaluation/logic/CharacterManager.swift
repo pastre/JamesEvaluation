@@ -106,8 +106,14 @@ class APICharacterLoader: CharacterCollectionViewManager, CharacterLoader  {
 
 class FavoriteCharacterLoader: CharacterCollectionViewManager, CharacterLoader {
     
-    let storage = StorageFacade()
-    
+    let storage = StorageFacade.instance
+    override init(_ collectionView: UICollectionView) {
+        super.init(collectionView)
+        
+        NotificationCenter.default.addObserver(forName: StorageFacade.favoritesDidChange, object: nil, queue: nil) { (notification) in
+            self.loadCharacters()
+        }
+    }
     func loadCharacters() {
         
         self.characters = self.storage.getFavorites()

@@ -10,8 +10,17 @@ import Foundation
 
 class StorageFacade {
     
+    static let favoritesDidChange =  NSNotification.Name("favoritesDidChange")
+    static let instance = StorageFacade()
+    
     private let favoritesKey = "favorites"
     private let defaults =  UserDefaults.standard
+    
+    private var favorites: [Character]!
+    
+    private init () {
+        self.favorites = self.loadFavorites()
+    }
     
     func isFavorite(character: Character) -> Bool {
         return self.getFavorites().contains {
@@ -19,7 +28,30 @@ class StorageFacade {
         }
     }
     
-    func getFavorites() -> [Character] {
+    func getFavorites() -> [Character] { self.favorites }
+    
+    func addFavorite(character: Character) {
+        self.favorites.append(character)
+        NotificationCenter.default.post(name: StorageFacade.favoritesDidChange, object: nil)
+        
+        DispatchQueue.global().async {
+            self.setFavorites()
+        }
+    }
+    
+    func removeFavorite(character: Character) {
+        
+        self.favorites.removeAll { (c) -> Bool in
+            c == character
+        }
+        
+        NotificationCenter.default.post(name: StorageFacade.favoritesDidChange, object: nil)
+        DispatchQueue.global().async {
+            self.setFavorites()
+        }
+    }
+    
+    private func loadFavorites() -> [Character] {
         if let data = self.defaults.data(forKey: favoritesKey), let decoded = try? JSONDecoder().decode([Character].self, from: data) {
             return decoded
         }
@@ -27,8 +59,8 @@ class StorageFacade {
         return []
     }
     
-    func setFavorites(to newValue: [Character] )  {
-        guard let data = try? JSONEncoder().encode(newValue) else { return }
+    private func setFavorites()  {
+        guard let data = try? JSONEncoder().encode(self.favorites) else { return }
         self.defaults.set(data, forKey: self.favoritesKey)
     }
 }

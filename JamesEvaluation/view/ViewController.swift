@@ -35,9 +35,11 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         self.view.backgroundColor = .white
         
         self.setupTableView()
+        
         self.charactersManager.loadCharacters()
         
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -45,6 +47,7 @@ class ViewController: UIViewController, CharacterManagerDelegate {
         self.navigationItem.title = "Characters"
         self.navigationItem.largeTitleDisplayMode = .always
         
+        self.charactersCollectionView.reloadData()
     }
     
     // MARK: - Setup
