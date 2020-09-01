@@ -6,7 +6,7 @@
 //  Copyright © 2020 Bruno Pastre. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 class MockCharacterCollectionViewModel: CharacterCollectionViewModel, CharacterLoader {
@@ -16,7 +16,7 @@ class MockCharacterCollectionViewModel: CharacterCollectionViewModel, CharacterL
             
             let toJson = try! JSONSerialization.data(withJSONObject: $0, options: [])
             let newChar = try! JSONDecoder().decode(Character.self, from: toJson)
-            
+            newChar.loadedImage = UIImage(named: "mock_image")?.pngData()
             self.characters.append(newChar)
             self.collectionView.reloadData()
         }

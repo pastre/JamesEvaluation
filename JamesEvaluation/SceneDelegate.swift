@@ -23,9 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
         #if DEBUG
-        let allCharactersVC = CharacterCollectionViewController(manager: APICharacterCollectionViewModel.self)
-        #else
         let allCharactersVC = CharacterCollectionViewController(manager: MockCharacterCollectionViewModel.self)
+        #else
+        let allCharactersVC = CharacterCollectionViewController(manager: APICharacterCollection.self)
         #endif
         
         let favoritesCharactersVC = CharacterCollectionViewController(manager: FavoriteCharacterCollectionViewModel.self)
