@@ -11,7 +11,7 @@ import UIKit
 class FavoriteCharacterCollectionViewModel: CharacterCollectionViewModel, CharacterLoader {
     
     let storage = StorageFacade.instance
-    override init(_ collectionView: UICollectionView) {
+    required init(_ collectionView: UICollectionView) {
         super.init(collectionView)
         
         NotificationCenter.default.addObserver(forName: StorageFacade.favoritesDidChange, object: nil, queue: nil) { (notification) in

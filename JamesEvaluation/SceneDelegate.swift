@@ -20,24 +20,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         let tabBar = UITabBarController()
-        let allCharactersVC = ViewController()
-        let favoritesCharactersVC = ViewController()
+        let allCharactersVC = CharacterCollectionViewController()
+        let favoritesCharactersVC = CharacterCollectionViewController()
         
         let names = [
             "Characters",
             "Favorites"
         ]
         
-        
-        
         let icons = [
             "list.bullet",
             "star"
         ]
         
-        allCharactersVC.configure(manager: APICharacterCollectionViewModel(allCharactersVC.charactersCollectionView))
+        allCharactersVC.configure(manager: APICharacterCollectionViewModel.self)
         
-        favoritesCharactersVC.configure(manager: FavoriteCharacterCollectionViewModel(favoritesCharactersVC.charactersCollectionView))
+        favoritesCharactersVC.configure(manager: FavoriteCharacterCollectionViewModel.self)
         
         tabBar.viewControllers =  [
             UINavigationController(rootViewController: allCharactersVC),

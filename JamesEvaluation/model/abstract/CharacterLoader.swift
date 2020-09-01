@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CharacterLoader: CharacterCollectionViewModel {
-
+    
     func loadCharacters()
 
 }

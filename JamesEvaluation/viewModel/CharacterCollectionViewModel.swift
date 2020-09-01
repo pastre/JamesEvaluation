@@ -17,7 +17,7 @@ class CharacterCollectionViewModel: NSObject, UICollectionViewDelegateFlowLayout
     
     var delegate: CharacterManagerDelegate?
     
-    init(_ collectionView: UICollectionView) {
+    required init(_ collectionView: UICollectionView) {
         self.collectionView = collectionView
         
         super.init()
