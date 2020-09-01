@@ -127,8 +127,6 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         self.originLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
         self.locationLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
-
-        
         
     }
     
