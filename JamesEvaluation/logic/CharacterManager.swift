@@ -10,6 +10,8 @@ import UIKit
 
 protocol CharacterManagerDelegate: class {
     func onCharacterPicked(_ character: Character)
+    func onStartLoading()
+    func onDoneLoading()
 }
 
 protocol CharacterLoader: CharacterCollectionViewManager {
@@ -87,6 +89,7 @@ class CharacterCollectionViewManager: NSObject, UICollectionViewDelegateFlowLayo
 class APICharacterLoader: CharacterCollectionViewManager, CharacterLoader  {
     
     var characterProvider: CharacterProvider!
+    var isLoading: Bool = false
     
     override init(_ collectionView: UICollectionView) {
         super.init(collectionView)
@@ -95,13 +98,23 @@ class APICharacterLoader: CharacterCollectionViewManager, CharacterLoader  {
     }
     
     func loadCharacters() {
-           self.characterProvider.loadCharacters { (newCharacters, error) in
-               guard let characters = newCharacters else { return }
+        self.delegate?.onStartLoading()
+        self.characterProvider.loadCharacters { (newCharacters, error) in
+            guard let characters = newCharacters else { return }
 
-               self.characters.append(contentsOf: characters)
-               self.collectionView.reloadData()
-           }
-       }
+            self.characters.append(contentsOf: characters)
+            self.delegate?.onDoneLoading()
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if indexPath.item == self.characters.count - 1 {
+            self.loadCharacters()
+        }
+    }
+    
 }
 
 class FavoriteCharacterLoader: CharacterCollectionViewManager, CharacterLoader {
