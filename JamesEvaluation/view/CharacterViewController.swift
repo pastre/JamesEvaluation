@@ -63,7 +63,18 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
         return view
     }()
+    
     private let createdAtLabel: UILabel = {
+        let view = UILabel()
+        
+        view.numberOfLines = 2
+        view.font = .preferredFont(forTextStyle: .callout)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private let episodesLabel: UILabel = {
         let view = UILabel()
         
         view.numberOfLines = 2
@@ -86,6 +97,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.setupStatusLabel()
         self.setupLocationLabels()
         self.setupCreatedAtLabel()
+        self.setupEpisodesLabel()
         
         // Do any additional setup after loading the view.
     }
@@ -152,6 +164,18 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         
     }
     
+    func setupEpisodesLabel() {
+        
+        self.view.addSubview(self.episodesLabel)
+        
+        self.episodesLabel.topAnchor.constraint(equalTo: self.createdAtLabel.bottomAnchor, constant: 40).isActive = true
+        
+        self.episodesLabel.leadingAnchor.constraint(equalTo: self.characterNameLabel.leadingAnchor).isActive = true
+        
+        self.episodesLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+        
+    }
+    
     //MARK: - CharacterViewDelegate
     func updateInterface() {
         if let image = self.model.character.loadedImage {
@@ -161,6 +185,7 @@ class CharacterViewController: UIViewController, CharacterViewModelDelegate {
         self.characterNameLabel.text = self.model.character.name
         self.characterStatusLabel.text = self.model.character.status + " - " + self.model.character.gender + " - " + self.model.character.species
        
+        self.episodesLabel.text = "Appears in \(self.model.character.episode.count) episodes"
         self.setAttributedText( "📍 Originally from ", bold: self.model.character.origin.name, on: self.originLabel)
         
         self.setAttributedText("📍 Currently at ", bold: self.model.character.location.name, on: self.locationLabel)
