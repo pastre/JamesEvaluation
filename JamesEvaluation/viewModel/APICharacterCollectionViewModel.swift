@@ -10,7 +10,7 @@ import UIKit
 
 class APICharacterCollectionViewModel: CharacterCollectionViewModel, CharacterLoader {
     
-    var characterProvider: CharacterFetcher! = CharacterFetcher()
+    var characterProvider: APICharacterFetcher! = APICharacterFetcher()
     var isLoading: Bool = false
     
     func loadCharacters() {

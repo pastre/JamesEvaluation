@@ -20,7 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         let tabBar = UITabBarController()
-        let allCharactersVC = CharacterCollectionViewController(manager: APICharacterCollectionViewModel.self)
+        
+        
+        #if DEBUG
+        let allCharactersVC = CharacterCollectionViewController(manager: MockCharacterCollectionViewModel.self)
+        #else
+        let allCharactersVC = CharacterCollectionViewController(manager: APICharacterCollection.self)
+        #endif
+        
         let favoritesCharactersVC = CharacterCollectionViewController(manager: FavoriteCharacterCollectionViewModel.self)
         
         let names = [

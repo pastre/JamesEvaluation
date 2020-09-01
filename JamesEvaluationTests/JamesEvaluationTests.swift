@@ -10,20 +10,70 @@ import XCTest
 @testable import JamesEvaluation
 
 class JamesEvaluationTests: XCTestCase {
-
-    var loader = CharacterFetcher()
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    func testCharacterLoading() {
+        let mocked = MockCharacterCollectionViewModel(UICollectionView(frame: .zero, collectionViewLayout: .init()))
+        XCTAssert(mocked.characters.isEmpty)
+        
+        mocked.loadCharacters()
+        
+        XCTAssert(mocked.characters.count == mocked.getMockedDict().count)
+        mocked.characters.enumerated().forEach {
+            i, character in
+            XCTAssert(character.id == mocked.getMockedDict()[i]["id"] as? Int)
+        }
     }
+    
+    func testFavorites() {
+        let storage = StorageFacade.instance
+        
+        let mocked = MockCharacterCollectionViewModel(UICollectionView(frame: .zero, collectionViewLayout: .init()))
+        
+        mocked.loadCharacters()
+        
+        guard let character = mocked.characters.first,  let id = mocked.getMockedDict()[0]["id"] as? Int else {
+            XCTAssert(false)
+            return
+        }
+        
+        storage.clearFavorites()
+        
+        XCTAssert(storage.getFavorites().isEmpty)
+        
+        storage.addFavorite(character: character)
+        
+        XCTAssert(storage.getFavorites().first == mocked.characters.first)
+        XCTAssert(mocked.characters.count == mocked.getMockedDict().count)
+        
+        storage.removeFavorite(character: character)
+        XCTAssert(storage.getFavorites().isEmpty)
+        
+        let many = 100
+        
+        for _ in 0..<many {
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+            storage.addFavorite(character: character)
+            
+        }
+        
+        XCTAssert(storage.getFavorites().count == many)
+        
+        storage.getFavorites().forEach { (character) in
+            XCTAssert(character.id == id)
+        }
+        
+        for _ in 0...many {
+            storage.removeFavorite(character: character)
+        }
+        
+        XCTAssert(storage.getFavorites().count == 0)
+        
     }
-
-    func testLoadLastCharacters() throws {
+    
+    func testLoadLastAPICharacters() throws {
         let expectation = XCTestExpectation(description: "Load last characters")
         
-        let loader = CharacterFetcher()
+        let loader = APICharacterFetcher()
         
         loader.loadCharacters { (characters, error) in
         
@@ -60,21 +110,30 @@ class JamesEvaluationTests: XCTestCase {
         self.wait(for: [expectation], timeout: 20)
     }
     
-    func testCharacterLoading() throws {
+    func testAPICharacterLoading() throws {
         let expectation = XCTestExpectation(description: "Load 4 character pages")
         
-        let loader = CharacterFetcher()
+        let loader = APICharacterFetcher()
+        
+        var current = loader.currentResponse.next
+        
         loader.loadCharacters { (newCharacters, error) in
             if let error = error {
                 XCTFail("Failed to load!, \(error)")
                 return
             }
             
+            XCTAssert(current != loader.currentResponse.next)
+            current = loader.currentResponse.next
+            
             loader.loadCharacters { (newCharacters, error) in
                 if let error = error {
                     XCTFail("Failed to load!, \(error)")
                     return
                 }
+
+                XCTAssert(current != loader.currentResponse.next)
+                current = loader.currentResponse.next
                 
                 loader.loadCharacters { (newCharacters, error) in
                     if let error = error {
@@ -82,11 +141,17 @@ class JamesEvaluationTests: XCTestCase {
                         return
                     }
 
+                    XCTAssert(current != loader.currentResponse.next)
+                    current = loader.currentResponse.next
+                    
                     loader.loadCharacters { (newCharacters, error) in
                         if let error = error {
                             XCTFail("Failed to load!, \(error)")
                             return
                         }
+                        
+                        XCTAssert(current != loader.currentResponse.next)
+                        current = loader.currentResponse.next
                         
                         expectation.fulfill()
                         
@@ -97,12 +162,41 @@ class JamesEvaluationTests: XCTestCase {
         
         self.wait(for: [expectation], timeout: 20)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testFavoriteLoading() throws {
+        let loader = FavoriteCharacterCollectionViewModel(.init(frame: .zero, collectionViewLayout: .init()))
+        let storage = StorageFacade.instance
+        
+        let mocked = MockCharacterCollectionViewModel(UICollectionView(frame: .zero, collectionViewLayout: .init()))
+        
+        mocked.loadCharacters()
+        
+        guard let character = mocked.characters.first,  let id = mocked.getMockedDict()[0]["id"] as? Int else {
+            XCTAssert(false)
+            return
         }
+        
+        storage.clearFavorites()
+        
+        XCTAssert(loader.characters.isEmpty)
+        
+        loader.loadCharacters()
+        XCTAssert(loader.characters.isEmpty)
+        
+        storage.addFavorite(character: character)
+        
+        loader.loadCharacters()
+        XCTAssert(loader.characters.count == 1)
+        
+        loader.loadCharacters()
+        XCTAssert(loader.characters.count == 1)
+        
+        XCTAssert(loader.characters.first?.id == id)
+        
+        storage.removeFavorite(character: character)
+        XCTAssert(loader.characters.isEmpty)
+        
+        
+        
     }
-
 }

@@ -1,5 +1,5 @@
 //
-//  CharacterLoader.swift
+//  APICharacterFetcher.swift
 //  JamesEvaluation
 //
 //  Created by Bruno Pastre on 31/08/20.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-class CharacterFetcher {
+class APICharacterFetcher {
     
-    var apiFacade = APIFacade()
-    var currentResponse: CharacterResponseMetadata!
-    var canRequest: Bool = true
+    private var apiFacade = APIFacade()
+    public var currentResponse: CharacterResponseMetadata!
+    private var canRequest: Bool = true
     
     init() {
         self.currentResponse = CharacterResponseMetadata.getFirst()

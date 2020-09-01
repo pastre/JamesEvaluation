@@ -7,8 +7,3 @@
 //
 
 import Foundation
-
-
-protocol CharacterProvider {
-    func loadCharacters(completion: @escaping ([Character]?, Error?) -> ())
-}
