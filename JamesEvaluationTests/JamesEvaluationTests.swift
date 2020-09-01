@@ -11,7 +11,6 @@ import XCTest
 
 class JamesEvaluationTests: XCTestCase {
 
-    var loader = CharacterFetcher()
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -20,10 +19,11 @@ class JamesEvaluationTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    
     func testLoadLastCharacters() throws {
         let expectation = XCTestExpectation(description: "Load last characters")
         
-        let loader = CharacterFetcher()
+        let loader = APICharacterFetcher()
         
         loader.loadCharacters { (characters, error) in
         
@@ -63,7 +63,7 @@ class JamesEvaluationTests: XCTestCase {
     func testCharacterLoading() throws {
         let expectation = XCTestExpectation(description: "Load 4 character pages")
         
-        let loader = CharacterFetcher()
+        let loader = APICharacterFetcher()
         loader.loadCharacters { (newCharacters, error) in
             if let error = error {
                 XCTFail("Failed to load!, \(error)")
@@ -96,13 +96,6 @@ class JamesEvaluationTests: XCTestCase {
         }
         
         self.wait(for: [expectation], timeout: 20)
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
     }
 
 }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D74BC22324FD9489006814BB /* CharacterFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BC22224FD9489006814BB /* CharacterFetcher.swift */; };
+		D74BC22324FD9489006814BB /* APICharacterFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BC22224FD9489006814BB /* APICharacterFetcher.swift */; };
 		D74BC22524FD94A3006814BB /* CharacterProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BC22424FD94A3006814BB /* CharacterProvider.swift */; };
 		D74BC22724FD94B6006814BB /* CharacterLoaderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BC22624FD94B6006814BB /* CharacterLoaderError.swift */; };
 		D75F615E24FEA057008AAA0A /* CharacterManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F615D24FEA057008AAA0A /* CharacterManagerDelegate.swift */; };
@@ -47,7 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D74BC22224FD9489006814BB /* CharacterFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterFetcher.swift; sourceTree = "<group>"; };
+		D74BC22224FD9489006814BB /* APICharacterFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICharacterFetcher.swift; sourceTree = "<group>"; };
 		D74BC22424FD94A3006814BB /* CharacterProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProvider.swift; sourceTree = "<group>"; };
 		D74BC22624FD94B6006814BB /* CharacterLoaderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterLoaderError.swift; sourceTree = "<group>"; };
 		D75F615D24FEA057008AAA0A /* CharacterManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterManagerDelegate.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 		D75F616524FEA201008AAA0A /* logic */ = {
 			isa = PBXGroup;
 			children = (
-				D74BC22224FD9489006814BB /* CharacterFetcher.swift */,
+				D74BC22224FD9489006814BB /* APICharacterFetcher.swift */,
 				D7B6C02A24FDD9AC00E83218 /* StorageFacade.swift */,
 			);
 			path = logic;
@@ -335,7 +335,7 @@
 				D75F616A24FEA2B8008AAA0A /* Episode.swift in Sources */,
 				D7B6C02924FDB6DA00E83218 /* CharacterViewModel.swift in Sources */,
 				D75F616824FEA2A7008AAA0A /* Location.swift in Sources */,
-				D74BC22324FD9489006814BB /* CharacterFetcher.swift in Sources */,
+				D74BC22324FD9489006814BB /* APICharacterFetcher.swift in Sources */,
 				D7C0BCBB24FD6C53001037FC /* FavoriteCharacterCollectionViewModel.swift in Sources */,
 				D7C0BCBF24FD70C7001037FC /* APIFacade.swift in Sources */,
 				D7C0BC9B24FD6C1E001037FC /* SceneDelegate.swift in Sources */,
