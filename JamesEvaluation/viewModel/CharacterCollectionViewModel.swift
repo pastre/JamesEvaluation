@@ -62,6 +62,11 @@ class CharacterCollectionViewModel: NSObject, UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+
+            return CGSize(width: collectionView.frame.width * 0.3, height: collectionView.frame.height * 0.1)
+        }
+        
         return CGSize(width: collectionView.frame.width * 0.95, height: collectionView.frame.height * 0.2)
     }
     
@@ -70,6 +75,10 @@ class CharacterCollectionViewModel: NSObject, UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 10, left: 20, bottom: 0, right: 20)
     }
 }
